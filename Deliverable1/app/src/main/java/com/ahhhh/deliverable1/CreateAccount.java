@@ -14,7 +14,7 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     public void btnCreateAdminClick(View view) {
-        startActivity(new Intent(CreateAccount.this, EnterAccountCridentials.class));
+        startActivity(new Intent(CreateAccount.this, EnterAccountCredentials.class));
     }
     public void btnCreateServiceProviderClick(View view) {
 
