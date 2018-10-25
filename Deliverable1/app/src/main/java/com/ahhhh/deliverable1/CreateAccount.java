@@ -14,12 +14,17 @@ public class CreateAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        //check database if there are any Admin accounts    HERE FEMALE
-        /**
-         * if (there is admin account){
-         * ((ViewGroup) ((Button) findViewById(R.id.btnCreateAdmin)).getParent()).removeView(((Button) findViewById(R.id.btnCreateAdmin)));
-         * }
-         */
+        MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+
+
+        //check database if there are any Admin accounts    HERE FEMALE     ~~~~~~~~~~~~    DONE!!!!
+        //query from MyDatabaseHelper class finding if there exists an admin account in the db already
+        //Button not working????
+
+        if (myDBHelper.adminCreated()){
+            ((ViewGroup) ((Button) findViewById(R.id.btnCreateAdmin)).getParent()).removeView(((Button) findViewById(R.id.btnCreateAdmin)));
+        }
+
     }
 
     public void btnCreateAdminClick(View view) {
