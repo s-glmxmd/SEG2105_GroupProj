@@ -8,16 +8,25 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".CreateAccount">
+        android:theme="@style/AppTheme"
+        >
+        <activity android:name=".CreateAccount"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD:SEG2105_GroupProj/app/src/main/AndroidManifest.xml
+        <activity android:name=".EnterAccountCredentials"
+            android:exported="true">
+
+
+        </activity>
+=======
         <activity android:name=".EnterAccountCridentials" />
         <activity android:name=".LoginPage"></activity>
+>>>>>>> ce0a15f43ce0669b1da360b18c4cf9741b7cca8a:Deliverable1/app/src/main/AndroidManifest.xml
     </application>
 
 </manifest>
