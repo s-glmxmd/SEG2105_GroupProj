@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
             android:text="Hi! Select which type of account you would like to create."
+            android:textColor="?attr/colorBackgroundFloating"
             tools:textColor="@android:color/background_light" />
 
         <LinearLayout
@@ -33,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:onClick="btnCreateAdminClick"
                 android:text="Admin"
                 android:textColor="@color/colorAccent"
                 android:textSize="30sp" />
@@ -43,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:onClick="btnCreateServiceProviderClick"
                 android:text="Service Provider"
                 android:textColor="@color/colorAccent"
                 android:textSize="30sp" />
@@ -53,9 +56,19 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:onClick="btnCreateHomeownerClick"
                 android:text="Homeowner"
                 android:textColor="@color/colorAccent"
                 android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btnLoginExisting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="btnLoginExistingClick"
+                android:text="Log in to existing account"
+                android:textColor="@color/colorAccent" />
         </LinearLayout>
 
     </LinearLayout>
