@@ -12,17 +12,20 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ahhhhDB.db";
 
     public static final String CREDENTIAL_TABLE_NAME = "UserCredentials";
-    public static final String CREDENTIAL_COLUMN_PRIMARY_KEY = "id";
+    public static final String CREDENTIAL_COLUMN_PRIMARY_KEY = "_id";
     public static final String CREDENTIAL_COLUMN_USERNAME = "Username";
     public static final String CREDENTIAL_COLUMN_PASSWORD = "Password";
+    public static final String CREDENTIAL_LAST_NAME = "FirstName";
+    public static final String CREDENTIAL_FIRST_NAME = "LastName";
+    public static final String CREDENTIAL_ACCOUNT_TYPE = "AccountType";
 
     public static final String ACCOUNTS_TABLE_NAME = "UserAccounts";
     public static final String ACCOUNTS_ACCOUNT_TYPE = "AccountType";
     public static final String ACCOUNTS_EMAIL_ADDRESS = "EmailAddress";
     public static final String ACCOUNTS_PHONE_NUMBER = "PhoneNumber";
-    public static final String ACCOUNTS_FIRST_NAME = "FirstName";
-    public static final String ACCOUNTS_LAST_NAME = "LastName";
-    public static final String ACCOUNTS_COLUMN_PRIMARY_KEY  = "id";
+    public static final String ACCOUNTS_FIRST_NAME = "fname";
+    public static final String ACCOUNTS_LAST_NAME = "lname";
+    public static final String ACCOUNTS_COLUMN_PRIMARY_KEY  = "_id";
 
 
 
@@ -65,7 +68,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 CREDENTIAL_COLUMN_PRIMARY_KEY +
                 "INTEGER PRIMARY KEY," + CREDENTIAL_COLUMN_USERNAME +
                 "TEXT," + CREDENTIAL_COLUMN_PASSWORD +
-                "TEXT" + ")";
+                "TEXT" +  CREDENTIAL_FIRST_NAME + " TEXT"
+                + CREDENTIAL_LAST_NAME + "TEXT" +
+                CREDENTIAL_ACCOUNT_TYPE + "INTEGER" + ")";
         db.execSQL(CREATE_USER_CREDENTIALS_TABLE);
 
         String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE " +
@@ -211,13 +216,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addUserCredential(String username, String password, int id) {
+    public void addUserCredential(String username, String password, int id, String firstName, String lastName, int accountType) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(CREDENTIAL_COLUMN_USERNAME, username);
         values.put(CREDENTIAL_COLUMN_PASSWORD, password);
         values.put(CREDENTIAL_COLUMN_PRIMARY_KEY, id);
+        values.put(CREDENTIAL_FIRST_NAME, firstName);
+        values.put(CREDENTIAL_LAST_NAME, lastName);
+        values.put(CREDENTIAL_ACCOUNT_TYPE, accountType);
 
         db.insert(CREDENTIAL_TABLE_NAME, null, values);
         db.close();

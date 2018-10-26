@@ -34,8 +34,7 @@ public class AccountCreationAdmin extends AppCompatActivity {
             int idPA = myDBHelper.getPrimaryAccount();
             int idPC = myDBHelper.getPrimaryCredentials();
 
-            myDBHelper.addUserPersonnelInfo(firstName, lastName, idPA, 1);
-            myDBHelper.addUserCredential(username, password, idPC);
+
 
             if (myDBHelper.usernameExist(username)) {
                 ((TextView)findViewById(R.id.feedbackTextView)).setText("Username and/or password already exist. Try again.");
@@ -43,10 +42,16 @@ public class AccountCreationAdmin extends AppCompatActivity {
                 myDBHelper.deleteUserAccount(idPA);
             }
             else {
+                myDBHelper.addUserCredential(username, password, idPC, firstName, lastName, 1);
                 Intent i = new Intent(AccountCreationAdmin.this, WelcomeAdmin.class);
                 i.putExtra("firstName", firstName);
                 startActivity(i);
             }
+
+
+
+
+
         }
     }
 }
