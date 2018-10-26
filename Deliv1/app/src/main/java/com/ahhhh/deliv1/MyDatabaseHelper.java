@@ -92,8 +92,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             //an admin account was found
+            cursor.close();
+            db.close();
             return false;
         }
+        cursor.close();
+        db.close();
         return true;
 
     }
@@ -109,24 +113,31 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         String passwordSaved = "";
         if (cursor.moveToFirst()) {
             passwordSaved = cursor.getString(0);
+            cursor.close();
         }
-
+        db.close();
         return passwordSaved;
 
     }
 
     public boolean usernameExist(String username) {
+        boolean result = true;
         SQLiteDatabase db =  this.getReadableDatabase();
-        String query = "SELECT " + DatabaseReferences.UserCredentials.COLUMN_USERNAME  + " FROM "  +
+
+        String query = "SELECT * FROM "  +
                 DatabaseReferences.UserCredentials.TABLE_NAME + " WHERE " + DatabaseReferences.UserCredentials.COLUMN_USERNAME
                 + " = \"" + username + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
 
-        if (!cursor.moveToFirst()) {
-             return false;
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            db.close();
+            result = false;
         }
-        return true;
+        cursor.close();
+        db.close();
+        return result;
 
     }
 
@@ -159,10 +170,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
                 if (cursor.moveToFirst()) {
                     description = cursor.getString(0);
+                    cursor.close();
                 }
             }
 
         }
+        db.close();
         return description;
 
     }
@@ -191,13 +204,46 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteUserCredential(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
-    public void addUserPersonnelInfo(String firstName, String lastName, int id) {
+        String query = "Select * FROM " + DatabaseReferences.UserCredentials.TABLE_NAME + " WHERE " +
+                DatabaseReferences.UserCredentials.COLUMN_PRIMARY_KEY + " = \"" + id + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            String idStr = cursor.getString(0);
+            db.delete(DatabaseReferences.UserCredentials.TABLE_NAME, DatabaseReferences.UserCredentials.COLUMN_PRIMARY_KEY+ " = " + idStr, null);
+            cursor.close();
+
+        }
+        db.close();
+    }
+
+    public void deleteUserAccount(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "Select * FROM " + DatabaseReferences.UserAccounts.TABLE_NAME + " WHERE " +
+                DatabaseReferences.UserAccounts.COLUMN_PRIMARY_KEY+ " = \"" + id + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            String idStr = cursor.getString(0);
+            db.delete(DatabaseReferences.UserCredentials.TABLE_NAME, DatabaseReferences.UserCredentials.COLUMN_PRIMARY_KEY+ " = " + idStr, null);
+            cursor.close();
+
+        }
+        db.close();
+    }
+
+
+    public void addUserPersonnelInfo(String firstName, String lastName, int id, int accountType) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(DatabaseReferences.UserAccounts.FIRST_NAME, firstName);
         values.put(DatabaseReferences.UserAccounts.LAST_NAME , lastName);
+        values.put(DatabaseReferences.UserAccounts.ACCOUNT_TYPE, accountType);
         values.put(DatabaseReferences.UserAccounts.COLUMN_PRIMARY_KEY, id);
 
         db.insert(DatabaseReferences.UserAccounts.TABLE_NAME, null, values);

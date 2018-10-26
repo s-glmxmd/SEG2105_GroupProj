@@ -2,8 +2,8 @@ package com.ahhhh.deliv1;
 
 //for entire database
 public final class DatabaseReferences {
-    protected static final int DATABASE_VERSION = 1;
-    protected static final String DATABASE_NAME = "ahhhhDB.db";
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "ahhhhDB.db";
 
     private DatabaseReferences() {
         //to prevent us from accidentally creating an instance of this class
