@@ -15,15 +15,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String CREDENTIAL_COLUMN_PRIMARY_KEY = "_id";
     public static final String CREDENTIAL_COLUMN_USERNAME = "Username";
     public static final String CREDENTIAL_COLUMN_PASSWORD = "Password";
-<<<<<<< HEAD
+
     public static final String CREDENTIAL_LAST_NAME = "FirstName";
     public static final String CREDENTIAL_FIRST_NAME = "LastName";
     public static final String CREDENTIAL_ACCOUNT_TYPE = "AccountType";
 
-=======
+
     public static final String CREDENTIAL_COLUMN_FIRST_NAME="FirstName";
     public static final String CREDENTIAL_COLUMN_LAST_NAME="LastName";
->>>>>>> 5c3ce8466a720aa63cb1c2dc9312693ce55192ba
+
     public static final String ACCOUNTS_TABLE_NAME = "UserAccounts";
     public static final String ACCOUNTS_ACCOUNT_TYPE = "AccountType";
     public static final String ACCOUNTS_EMAIL_ADDRESS = "EmailAddress";
@@ -73,13 +73,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 CREDENTIAL_COLUMN_PRIMARY_KEY +
                 "INTEGER PRIMARY KEY," + CREDENTIAL_COLUMN_USERNAME +
                 "TEXT," + CREDENTIAL_COLUMN_PASSWORD +
-<<<<<<< HEAD
                 "TEXT" +  CREDENTIAL_FIRST_NAME + " TEXT"
                 + CREDENTIAL_LAST_NAME + "TEXT" +
                 CREDENTIAL_ACCOUNT_TYPE + "INTEGER" + ")";
-=======
-                "TEXT," + CREDENTIAL_COLUMN_FIRST_NAME+"TEXT,"+CREDENTIAL_COLUMN_LAST_NAME+"TEXT"+")";
->>>>>>> 5c3ce8466a720aa63cb1c2dc9312693ce55192ba
+
+
         db.execSQL(CREATE_USER_CREDENTIALS_TABLE);
 
 
