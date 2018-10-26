@@ -12,6 +12,30 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         super (context, DatabaseReferences.DATABASE_NAME, null, DatabaseReferences.DATABASE_VERSION);
     }
 
+    private int primaryCredentials = 0;
+    private int primaryAccount = 0;
+    private int primaryReference = 0;
+
+    public int getPrimaryCredentials() {
+        return this.primaryCredentials;
+    }
+    public void incrementPrimaryCredentials() {
+        this.primaryCredentials ++;
+    }
+
+    public int getPrimaryAccount() {
+        return this.primaryAccount;
+    }
+    public void incrementPrimaryAccount() {
+        this.primaryAccount ++;
+    }
+    public int getPrimaryReference() {
+        return this.primaryReference;
+    }
+    public void incrementPrimaryRefence() {
+        this.primaryReference ++;
+    }
+
     /*
     when the application is started i guess the db has to be created also?
      */
@@ -91,6 +115,21 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean usernameExist(String username) {
+        SQLiteDatabase db =  this.getReadableDatabase();
+        String query = "SELECT " + DatabaseReferences.UserCredentials.COLUMN_USERNAME  + " FROM "  +
+                DatabaseReferences.UserCredentials.TABLE_NAME + " WHERE " + DatabaseReferences.UserCredentials.COLUMN_USERNAME
+                + " = \"" + username + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (!cursor.moveToFirst()) {
+             return false;
+        }
+        return true;
+
+    }
+
     public String accountType(String username) {
         int primaryKeyUserCre = -1;
         int keyToReturn = 0;
@@ -149,6 +188,19 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         values.put(DatabaseReferences.UserCredentials.COLUMN_PRIMARY_KEY, id);
 
         db.insert(DatabaseReferences.UserCredentials.TABLE_NAME, null, values);
+        db.close();
+    }
+
+
+    public void addUserPersonnelInfo(String firstName, String lastName, int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(DatabaseReferences.UserAccounts.FIRST_NAME, firstName);
+        values.put(DatabaseReferences.UserAccounts.LAST_NAME , lastName);
+        values.put(DatabaseReferences.UserAccounts.COLUMN_PRIMARY_KEY, id);
+
+        db.insert(DatabaseReferences.UserAccounts.TABLE_NAME, null, values);
         db.close();
     }
 

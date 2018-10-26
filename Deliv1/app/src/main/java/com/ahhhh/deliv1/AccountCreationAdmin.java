@@ -26,14 +26,24 @@ public class AccountCreationAdmin extends AppCompatActivity {
         if(!account.validateEnteredInfo().equals("")){
             ((TextView)findViewById(R.id.feedbackTextView)).setText(account.validateEnteredInfo());
         } else{
-            //SAVE INFO TO DATABASE HERE FEMALE, AS LONG AS THE USERNAME or PASSWORD DON'T EXIST ALREADY
-            //if(they don't exist){
-            Intent i =new Intent(AccountCreationAdmin.this, WelcomeAdmin.class);
-            i.putExtra("firstName", firstName);
-            startActivity(i);
-            //} else {
-            //((TextView)findViewById(R.id.feedbackTextView)).setText("Username and/or password already exist. Try again.");
-            //}
+
+            MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+            myDBHelper.incrementPrimaryAccount();
+            myDBHelper.incrementPrimaryCredentials();
+            int idPA = myDBHelper.getPrimaryAccount();
+            int idPC = myDBHelper.getPrimaryCredentials();
+            if (myDBHelper.usernameExist(username)) {
+                ((TextView)findViewById(R.id.feedbackTextView)).setText("Username and/or password already exist. Try again.");
+            }
+            else {
+                myDBHelper.addUserPersonnelInfo(firstName, lastName, idPA);
+                myDBHelper.addUserCredential(username, password, idPC);
+                myDBHelper.addUserAccount(1);
+
+                Intent i =new Intent(AccountCreationAdmin.this, WelcomeAdmin.class);
+                i.putExtra("firstName", firstName);
+                startActivity(i);
+            }
         }
     }
 }
