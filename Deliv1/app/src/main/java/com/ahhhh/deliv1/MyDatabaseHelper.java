@@ -12,10 +12,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ahhhhDB.db";
 
     public static final String CREDENTIAL_TABLE_NAME = "UserCredentials";
-    public static final String CREDENTIAL_COLUMN_PRIMARY_KEY = "id";
+    public static final String CREDENTIAL_COLUMN_PRIMARY_KEY = "_id";
     public static final String CREDENTIAL_COLUMN_USERNAME = "Username";
     public static final String CREDENTIAL_COLUMN_PASSWORD = "Password";
-
+    public static final String CREDENTIAL_COLUMN_FIRST_NAME="FirstName";
+    public static final String CREDENTIAL_COLUMN_LAST_NAME="LastName";
     public static final String ACCOUNTS_TABLE_NAME = "UserAccounts";
     public static final String ACCOUNTS_ACCOUNT_TYPE = "AccountType";
     public static final String ACCOUNTS_EMAIL_ADDRESS = "EmailAddress";
@@ -65,30 +66,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 CREDENTIAL_COLUMN_PRIMARY_KEY +
                 "INTEGER PRIMARY KEY," + CREDENTIAL_COLUMN_USERNAME +
                 "TEXT," + CREDENTIAL_COLUMN_PASSWORD +
-                "TEXT" + ")";
+                "TEXT," + CREDENTIAL_COLUMN_FIRST_NAME+"TEXT,"+CREDENTIAL_COLUMN_LAST_NAME+"TEXT"+")";
         db.execSQL(CREATE_USER_CREDENTIALS_TABLE);
-
-        String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE " +
-                ACCOUNTS_TABLE_NAME + "(" +
-                ACCOUNTS_COLUMN_PRIMARY_KEY + "INTEGER PRIMARY KEY," +
-                ACCOUNTS_ACCOUNT_TYPE + "INTEGER," +
-                ACCOUNTS_FIRST_NAME + "TEXT," +
-                ACCOUNTS_LAST_NAME + "TEXT," +
-                ACCOUNTS_EMAIL_ADDRESS + "TEXT," +
-                ACCOUNTS_PHONE_NUMBER + "BLOB" + ")";
-        db.execSQL(CREATE_USER_ACCOUNTS_TABLE);
-
-        String CREATE_REFERENCE_CODES_TABLE = "CREATE TABLE " +
-                DatabaseReferences.ReferenceCodes.TABLE_NAME + "(" +
-                DatabaseReferences.ReferenceCodes.CODE + "INTEGER PRIMARY KEY," +
-                DatabaseReferences.ReferenceCodes.CODE_TYPE + "INTEGER," +
-                DatabaseReferences.ReferenceCodes.DESCRIPTION + "TEXT" + ")";
-        db.execSQL(CREATE_REFERENCE_CODES_TABLE);
-
-        this.addReferenceCode(0, 0, "Account Types");
-        this.addReferenceCode(1, 1, "Administrator");
-        this.addReferenceCode(2, 1, "Service Provider");
-        this.addReferenceCode(3, 1, "Homeowner");
 
 
     }
@@ -96,8 +75,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + CREDENTIAL_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + ACCOUNTS_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + DatabaseReferences.ReferenceCodes.TABLE_NAME);
         onCreate(db);
     }
 
@@ -143,7 +120,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         boolean result = true;
         SQLiteDatabase db =  this.getReadableDatabase();
 
-        String query = "SELECT * FROM "  +
+        String query = "Select * FROM "  +
                 CREDENTIAL_TABLE_NAME + " WHERE " + CREDENTIAL_COLUMN_USERNAME
                 + " = \"" + username + "\"";
 
