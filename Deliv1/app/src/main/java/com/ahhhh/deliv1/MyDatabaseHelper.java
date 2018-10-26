@@ -8,8 +8,27 @@ import android.database.Cursor;
 
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "ahhhhDB.db";
+
+    public static final String CREDENTIAL_TABLE_NAME = "UserCredentials";
+    public static final String CREDENTIAL_COLUMN_PRIMARY_KEY = "id";
+    public static final String CREDENTIAL_COLUMN_USERNAME = "Username";
+    public static final String CREDENTIAL_COLUMN_PASSWORD = "Password";
+
+    public static final String ACCOUNTS_TABLE_NAME = "UserAccounts";
+    public static final String ACCOUNTS_ACCOUNT_TYPE = "AccountType";
+    public static final String ACCOUNTS_EMAIL_ADDRESS = "EmailAddress";
+    public static final String ACCOUNTS_PHONE_NUMBER = "PhoneNumber";
+    public static final String ACCOUNTS_FIRST_NAME = "FirstName";
+    public static final String ACCOUNTS_LAST_NAME = "LastName";
+    public static final String ACCOUNTS_COLUMN_PRIMARY_KEY  = "id";
+
+
+
+
     public MyDatabaseHelper (Context context) {
-        super (context, DatabaseReferences.DATABASE_NAME, null, DatabaseReferences.DATABASE_VERSION);
+        super (context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     private int primaryCredentials = 0;
@@ -42,21 +61,21 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USER_CREDENTIALS_TABLE = "CREATE TABLE " +
-                DatabaseReferences.UserCredentials.TABLE_NAME + "(" +
-                DatabaseReferences.UserCredentials.COLUMN_PRIMARY_KEY +
-                "INTEGER PRIMARY KEY," + DatabaseReferences.UserCredentials.COLUMN_USERNAME +
-                "TEXT," + DatabaseReferences.UserCredentials.COLUMN_PASSWORD +
+                CREDENTIAL_TABLE_NAME + "(" +
+                CREDENTIAL_COLUMN_PRIMARY_KEY +
+                "INTEGER PRIMARY KEY," + CREDENTIAL_COLUMN_USERNAME +
+                "TEXT," + CREDENTIAL_COLUMN_PASSWORD +
                 "TEXT" + ")";
         db.execSQL(CREATE_USER_CREDENTIALS_TABLE);
 
         String CREATE_USER_ACCOUNTS_TABLE = "CREATE TABLE " +
-                DatabaseReferences.UserAccounts.TABLE_NAME + "(" +
-                DatabaseReferences.UserAccounts.COLUMN_PRIMARY_KEY + "INTEGER PRIMARY KEY," +
-                DatabaseReferences.UserAccounts.ACCOUNT_TYPE + "INTEGER," +
-                DatabaseReferences.UserAccounts.FIRST_NAME + "TEXT," +
-                DatabaseReferences.UserAccounts.LAST_NAME + "TEXT," +
-                DatabaseReferences.UserAccounts.EMAIL_ADDRESS + "TEXT," +
-                DatabaseReferences.UserAccounts.PHONE_NUMBER + "BLOB" + ")";
+                ACCOUNTS_TABLE_NAME + "(" +
+                ACCOUNTS_COLUMN_PRIMARY_KEY + "INTEGER PRIMARY KEY," +
+                ACCOUNTS_ACCOUNT_TYPE + "INTEGER," +
+                ACCOUNTS_FIRST_NAME + "TEXT," +
+                ACCOUNTS_LAST_NAME + "TEXT," +
+                ACCOUNTS_EMAIL_ADDRESS + "TEXT," +
+                ACCOUNTS_PHONE_NUMBER + "BLOB" + ")";
         db.execSQL(CREATE_USER_ACCOUNTS_TABLE);
 
         String CREATE_REFERENCE_CODES_TABLE = "CREATE TABLE " +
@@ -76,8 +95,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + DatabaseReferences.UserCredentials.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + DatabaseReferences.UserAccounts.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CREDENTIAL_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ACCOUNTS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + DatabaseReferences.ReferenceCodes.TABLE_NAME);
         onCreate(db);
     }
@@ -86,8 +105,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public boolean adminCreated() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT * FROM " + DatabaseReferences.UserAccounts.TABLE_NAME + " WHERE "
-                + DatabaseReferences.UserAccounts.ACCOUNT_TYPE + "=\"" + 1 + "\"";
+        String query = "SELECT * FROM " + ACCOUNTS_TABLE_NAME + " WHERE "
+                + ACCOUNTS_ACCOUNT_TYPE + "=\"" + 1 + "\"";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
@@ -105,8 +124,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public String findPassword(String username) {
         SQLiteDatabase db =  this.getReadableDatabase();
-        String query = "SELECT " + DatabaseReferences.UserCredentials.COLUMN_PASSWORD  + " FROM "  +
-                DatabaseReferences.UserCredentials.TABLE_NAME + " WHERE " + DatabaseReferences.UserCredentials.COLUMN_USERNAME
+        String query = "SELECT " + CREDENTIAL_COLUMN_PASSWORD  + " FROM "  +
+                CREDENTIAL_TABLE_NAME + " WHERE " + CREDENTIAL_COLUMN_USERNAME
                 + " = \"" + username + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
@@ -125,7 +144,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db =  this.getReadableDatabase();
 
         String query = "SELECT * FROM "  +
-                DatabaseReferences.UserCredentials.TABLE_NAME + " WHERE " + DatabaseReferences.UserCredentials.COLUMN_USERNAME
+                CREDENTIAL_TABLE_NAME + " WHERE " + CREDENTIAL_COLUMN_USERNAME
                 + " = \"" + username + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
@@ -147,14 +166,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         String description = "";
 
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + DatabaseReferences.UserCredentials.COLUMN_PRIMARY_KEY + " FROM " +
-                DatabaseReferences.UserCredentials.TABLE_NAME + " WHERE " + DatabaseReferences.UserCredentials.COLUMN_USERNAME
+        String query = "SELECT " + CREDENTIAL_COLUMN_PRIMARY_KEY + " FROM " +
+                CREDENTIAL_TABLE_NAME + " WHERE " + CREDENTIAL_COLUMN_USERNAME
                 + " = \"" + username + "\"";
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             primaryKeyUserCre = Integer.parseInt(cursor.getString(0));
-            query = "SELECT " + DatabaseReferences.UserAccounts.ACCOUNT_TYPE + " FROM " +
-                    DatabaseReferences.UserAccounts.TABLE_NAME + " WHERE " + DatabaseReferences.UserAccounts.COLUMN_PRIMARY_KEY
+            query = "SELECT " + ACCOUNTS_ACCOUNT_TYPE + " FROM " +
+                    ACCOUNTS_TABLE_NAME + " WHERE " + ACCOUNTS_COLUMN_PRIMARY_KEY
                     + " = \"" + primaryKeyUserCre + "\"";
             cursor = db.rawQuery(query, null);
 
@@ -196,24 +215,24 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(DatabaseReferences.UserCredentials.COLUMN_USERNAME, username);
-        values.put(DatabaseReferences.UserCredentials.COLUMN_PASSWORD, password);
-        values.put(DatabaseReferences.UserCredentials.COLUMN_PRIMARY_KEY, id);
+        values.put(CREDENTIAL_COLUMN_USERNAME, username);
+        values.put(CREDENTIAL_COLUMN_PASSWORD, password);
+        values.put(CREDENTIAL_COLUMN_PRIMARY_KEY, id);
 
-        db.insert(DatabaseReferences.UserCredentials.TABLE_NAME, null, values);
+        db.insert(CREDENTIAL_TABLE_NAME, null, values);
         db.close();
     }
 
     public void deleteUserCredential(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "Select * FROM " + DatabaseReferences.UserCredentials.TABLE_NAME + " WHERE " +
-                DatabaseReferences.UserCredentials.COLUMN_PRIMARY_KEY + " = \"" + id + "\"";
+        String query = "Select * FROM " + CREDENTIAL_TABLE_NAME + " WHERE " +
+                CREDENTIAL_COLUMN_PRIMARY_KEY + " = \"" + id + "\"";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
             String idStr = cursor.getString(0);
-            db.delete(DatabaseReferences.UserCredentials.TABLE_NAME, DatabaseReferences.UserCredentials.COLUMN_PRIMARY_KEY+ " = " + idStr, null);
+            db.delete(CREDENTIAL_TABLE_NAME, CREDENTIAL_COLUMN_PRIMARY_KEY+ " = " + idStr, null);
             cursor.close();
 
         }
@@ -223,13 +242,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void deleteUserAccount(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "Select * FROM " + DatabaseReferences.UserAccounts.TABLE_NAME + " WHERE " +
-                DatabaseReferences.UserAccounts.COLUMN_PRIMARY_KEY+ " = \"" + id + "\"";
+        String query = "Select * FROM " + ACCOUNTS_TABLE_NAME + " WHERE " +
+                ACCOUNTS_COLUMN_PRIMARY_KEY+ " = \"" + id + "\"";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
             String idStr = cursor.getString(0);
-            db.delete(DatabaseReferences.UserCredentials.TABLE_NAME, DatabaseReferences.UserCredentials.COLUMN_PRIMARY_KEY+ " = " + idStr, null);
+            db.delete(CREDENTIAL_TABLE_NAME, CREDENTIAL_COLUMN_PRIMARY_KEY+ " = " + idStr, null);
             cursor.close();
 
         }
@@ -241,12 +260,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(DatabaseReferences.UserAccounts.FIRST_NAME, firstName);
-        values.put(DatabaseReferences.UserAccounts.LAST_NAME , lastName);
-        values.put(DatabaseReferences.UserAccounts.ACCOUNT_TYPE, accountType);
-        values.put(DatabaseReferences.UserAccounts.COLUMN_PRIMARY_KEY, id);
+        values.put(ACCOUNTS_FIRST_NAME, firstName);
+        values.put(ACCOUNTS_LAST_NAME , lastName);
+        values.put(ACCOUNTS_ACCOUNT_TYPE, accountType);
+        values.put(ACCOUNTS_COLUMN_PRIMARY_KEY, id);
 
-        db.insert(DatabaseReferences.UserAccounts.TABLE_NAME, null, values);
+        db.insert(ACCOUNTS_TABLE_NAME, null, values);
         db.close();
     }
 
@@ -255,9 +274,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(DatabaseReferences.UserAccounts.ACCOUNT_TYPE, accountType);
+        values.put(ACCOUNTS_ACCOUNT_TYPE, accountType);
 
-        db.insert(DatabaseReferences.UserAccounts.TABLE_NAME, null, values);
+        db.insert(ACCOUNTS_TABLE_NAME, null, values);
         db.close();
     }
 
