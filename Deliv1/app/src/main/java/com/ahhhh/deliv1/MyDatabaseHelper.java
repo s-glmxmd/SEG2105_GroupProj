@@ -71,11 +71,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         String CREATE_USER_CREDENTIALS_TABLE = "CREATE TABLE " +
                 CREDENTIAL_TABLE_NAME + "(" +
                 CREDENTIAL_COLUMN_PRIMARY_KEY +
-                "INTEGER PRIMARY KEY," + CREDENTIAL_COLUMN_USERNAME +
-                "TEXT," + CREDENTIAL_COLUMN_PASSWORD +
-                "TEXT" +  CREDENTIAL_FIRST_NAME + " TEXT"
-                + CREDENTIAL_LAST_NAME + "TEXT" +
-                CREDENTIAL_ACCOUNT_TYPE + "INTEGER" + ")";
+                " INTEGER PRIMARY KEY," + CREDENTIAL_COLUMN_USERNAME +
+                " TEXT," + CREDENTIAL_COLUMN_PASSWORD +
+                " TEXT, " +  CREDENTIAL_FIRST_NAME + " TEXT, "
+                + CREDENTIAL_LAST_NAME + " TEXT, " +
+                CREDENTIAL_ACCOUNT_TYPE + " INTEGER, " + ")";
 
 
         db.execSQL(CREATE_USER_CREDENTIALS_TABLE);
