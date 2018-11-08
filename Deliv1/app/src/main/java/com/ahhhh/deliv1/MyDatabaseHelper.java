@@ -56,7 +56,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         this.primaryReference ++;
     }
 
-    
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USER_APPLICATION_TABLE = "CREATE TABLE " +
@@ -239,9 +239,19 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
-
-
+    /**
+     * Inserting user account information in the database
+     *
+     * @param fName first name of new user
+     * @param lName last name of new user
+     * @param username username of account created
+     * @param password password for account login validation
+     * @param accountType integer where 1 represents an Admin account, 2 represents a HomeOwner and
+     *                    3 represents a ServiceProvider
+     *
+     *                    NOTE: Will most likely either create a Enum type or add a new table
+     *                    in the database for references used
+     */
     public void addUserAccount(String fName, String lName, String username, String password, int accountType) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
