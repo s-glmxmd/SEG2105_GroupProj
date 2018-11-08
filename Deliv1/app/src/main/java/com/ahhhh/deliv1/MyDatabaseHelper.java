@@ -11,26 +11,19 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "ahhhhDB.db";
 
-    public static final String CREDENTIAL_TABLE_NAME = "UserCredentials";
-    public static final String CREDENTIAL_COLUMN_PRIMARY_KEY = "_id";
-    public static final String CREDENTIAL_COLUMN_USERNAME = "Username";
-    public static final String CREDENTIAL_COLUMN_PASSWORD = "Password";
+    public static final String TABLE_NAME = "ApplicationTable";
+    public static final String COLUMN_PRIMARY_KEY = "_id";
+    public static final String COLUMN_USERNAME = "Username";
+    public static final String COLUMN_PASSWORD = "Password";
 
-    public static final String CREDENTIAL_LAST_NAME = "FirstName";
-    public static final String CREDENTIAL_FIRST_NAME = "LastName";
-    public static final String CREDENTIAL_ACCOUNT_TYPE = "AccountType";
+    public static final String COLUMN_ACCOUNT_TYPE = "AccountType";
 
 
-    public static final String CREDENTIAL_COLUMN_FIRST_NAME="FirstName";
-    public static final String CREDENTIAL_COLUMN_LAST_NAME="LastName";
+    public static final String COLUMN_FIRST_NAME="FirstName";
+    public static final String COLUMN_LAST_NAME="LastName";
 
-    public static final String ACCOUNTS_TABLE_NAME = "UserAccounts";
-    public static final String ACCOUNTS_ACCOUNT_TYPE = "AccountType";
-    public static final String ACCOUNTS_EMAIL_ADDRESS = "EmailAddress";
-    public static final String ACCOUNTS_PHONE_NUMBER = "PhoneNumber";
-    public static final String ACCOUNTS_FIRST_NAME = "fname";
-    public static final String ACCOUNTS_LAST_NAME = "lname";
-    public static final String ACCOUNTS_COLUMN_PRIMARY_KEY  = "_id";
+    public static final String COLUMN_EMAIL_ADDRESS = "EmailAddress";
+    public static final String COLUMN_PHONE_NUMBER = "PhoneNumber";
 
 
 
@@ -63,38 +56,46 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         this.primaryReference ++;
     }
 
-    /*
-    when the application is started i guess the db has to be created also?
-     */
+    
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_USER_CREDENTIALS_TABLE = "CREATE TABLE " +
-                CREDENTIAL_TABLE_NAME + "(" +
-                CREDENTIAL_COLUMN_PRIMARY_KEY +
-                " INTEGER PRIMARY KEY," + CREDENTIAL_COLUMN_USERNAME +
-                " TEXT," + CREDENTIAL_COLUMN_PASSWORD +
-                " TEXT, " +  CREDENTIAL_FIRST_NAME + " TEXT, "
-                + CREDENTIAL_LAST_NAME + " TEXT, " +
-                CREDENTIAL_ACCOUNT_TYPE + " INTEGER, " + ")";
+        String CREATE_USER_APPLICATION_TABLE = "CREATE TABLE " +
+                TABLE_NAME + "(" +
+                COLUMN_PRIMARY_KEY +
+                " INTEGER PRIMARY KEY," + COLUMN_USERNAME +
+                " TEXT," + COLUMN_PASSWORD +
+                " TEXT, " +  COLUMN_FIRST_NAME + " TEXT, "
+                + COLUMN_LAST_NAME + " TEXT, " +
+                COLUMN_ACCOUNT_TYPE + " INTEGER, " +
+                COLUMN_EMAIL_ADDRESS + " TEXT, " +
+                COLUMN_PHONE_NUMBER + " TEXT" +
+                ")";
 
 
-        db.execSQL(CREATE_USER_CREDENTIALS_TABLE);
+        db.execSQL(CREATE_USER_APPLICATION_TABLE);
 
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + CREDENTIAL_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
 
+    /**
+     * This application restricts the creation of admin accounts to one only.
+     * This method searches through db to find out if this has already been done in order
+     * to later restrict the user from creating another one.
+     *
+     * @return true if there already exists an admin account in the db
+     */
     public boolean adminCreated() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT * FROM " + ACCOUNTS_TABLE_NAME + " WHERE "
-                + ACCOUNTS_ACCOUNT_TYPE + "=\"" + 1 + "\"";
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE "
+                + COLUMN_ACCOUNT_TYPE + "=\"" + 1 + "\"";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
@@ -110,10 +111,17 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Method to search through db in order to find password associated to account
+     * for login credential validation
+     *
+     * @param username username to find password for
+     * @return String representing password saved in db
+     */
     public String findPassword(String username) {
         SQLiteDatabase db =  this.getReadableDatabase();
-        String query = "SELECT " + CREDENTIAL_COLUMN_PASSWORD  + " FROM "  +
-                CREDENTIAL_TABLE_NAME + " WHERE " + CREDENTIAL_COLUMN_USERNAME
+        String query = "SELECT " + COLUMN_PASSWORD  + " FROM "  +
+                TABLE_NAME + " WHERE " + COLUMN_USERNAME
                 + " = \"" + username + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
@@ -127,12 +135,18 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Searches through db to make sure that the new username is not already in use
+     *
+     * @param username: value we wish to search in db
+     * @return true if the username exists and false otherwise
+     */
     public boolean usernameExist(String username) {
-        boolean result = true;
+        boolean result = false;
         SQLiteDatabase db =  this.getReadableDatabase();
 
         String query = "Select * FROM "  +
-                CREDENTIAL_TABLE_NAME + " WHERE " + CREDENTIAL_COLUMN_USERNAME
+                TABLE_NAME + " WHERE " + COLUMN_USERNAME
                 + " = \"" + username + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
@@ -140,7 +154,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             cursor.close();
             db.close();
-            result = false;
+            result = true;
         }
         cursor.close();
         db.close();
@@ -154,14 +168,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         String description = "";
 
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + CREDENTIAL_COLUMN_PRIMARY_KEY + " FROM " +
-                CREDENTIAL_TABLE_NAME + " WHERE " + CREDENTIAL_COLUMN_USERNAME
+        String query = "SELECT " + COLUMN_PRIMARY_KEY + " FROM " +
+                TABLE_NAME + " WHERE " + COLUMN_USERNAME
                 + " = \"" + username + "\"";
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             primaryKeyUserCre = Integer.parseInt(cursor.getString(0));
-            query = "SELECT " + ACCOUNTS_ACCOUNT_TYPE + " FROM " +
-                    ACCOUNTS_TABLE_NAME + " WHERE " + ACCOUNTS_COLUMN_PRIMARY_KEY
+            query = "SELECT " + COLUMN_ACCOUNT_TYPE + " FROM " +
+                    TABLE_NAME + " WHERE " + COLUMN_PRIMARY_KEY
                     + " = \"" + primaryKeyUserCre + "\"";
             cursor = db.rawQuery(query, null);
 
@@ -187,6 +201,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Currently only have one table for all the record from the application
+     *
+     * N.B.:
+     *      Will need to create a ReferenceCodes table to keep track of various codes throughout
+     *      db
+     */
+    /**
     public void addReferenceCode(int code, int codeType, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -199,47 +221,17 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addUserCredential(String username, String password, int id, String firstName, String lastName, int accountType) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(CREDENTIAL_COLUMN_USERNAME, username);
-        values.put(CREDENTIAL_COLUMN_PASSWORD, password);
-        values.put(CREDENTIAL_COLUMN_PRIMARY_KEY, id);
-        values.put(CREDENTIAL_FIRST_NAME, firstName);
-        values.put(CREDENTIAL_LAST_NAME, lastName);
-        values.put(CREDENTIAL_ACCOUNT_TYPE, accountType);
-
-        db.insert(CREDENTIAL_TABLE_NAME, null, values);
-        db.close();
-    }
-
-    public void deleteUserCredential(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "Select * FROM " + CREDENTIAL_TABLE_NAME + " WHERE " +
-                CREDENTIAL_COLUMN_PRIMARY_KEY + " = \"" + id + "\"";
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (cursor.moveToFirst()) {
-            String idStr = cursor.getString(0);
-            db.delete(CREDENTIAL_TABLE_NAME, CREDENTIAL_COLUMN_PRIMARY_KEY+ " = " + idStr, null);
-            cursor.close();
-
-        }
-        db.close();
-    }
-
+    */
     public void deleteUserAccount(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "Select * FROM " + ACCOUNTS_TABLE_NAME + " WHERE " +
-                ACCOUNTS_COLUMN_PRIMARY_KEY+ " = \"" + id + "\"";
+        String query = "Select * FROM " + TABLE_NAME + " WHERE " +
+                COLUMN_PRIMARY_KEY+ " = \"" + id + "\"";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
             String idStr = cursor.getString(0);
-            db.delete(CREDENTIAL_TABLE_NAME, CREDENTIAL_COLUMN_PRIMARY_KEY+ " = " + idStr, null);
+            db.delete(TABLE_NAME, COLUMN_PRIMARY_KEY+ " = " + idStr, null);
             cursor.close();
 
         }
@@ -247,27 +239,21 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void addUserPersonnelInfo(String firstName, String lastName, int id, int accountType) {
+
+
+
+    public void addUserAccount(String fName, String lName, String username, String password, int accountType) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(ACCOUNTS_FIRST_NAME, firstName);
-        values.put(ACCOUNTS_LAST_NAME , lastName);
-        values.put(ACCOUNTS_ACCOUNT_TYPE, accountType);
-        values.put(ACCOUNTS_COLUMN_PRIMARY_KEY, id);
 
-        db.insert(ACCOUNTS_TABLE_NAME, null, values);
-        db.close();
-    }
+        values.put(COLUMN_FIRST_NAME, fName);
+        values.put(COLUMN_LAST_NAME, lName);
+        values.put(COLUMN_USERNAME, username);
+        values.put(COLUMN_PASSWORD, password);
+        values.put(COLUMN_ACCOUNT_TYPE, accountType);
 
-
-    public void addUserAccount(int accountType) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(ACCOUNTS_ACCOUNT_TYPE, accountType);
-
-        db.insert(ACCOUNTS_TABLE_NAME, null, values);
+        db.insert(TABLE_NAME, null, values);
         db.close();
     }
 
