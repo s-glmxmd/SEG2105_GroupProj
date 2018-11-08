@@ -23,7 +23,8 @@
         <activity android:name=".WelcomeHomeowner" />
         <activity android:name=".WelcomeServiceProvider" />
         <activity android:name=".LogIn" />
-        <activity android:name=".AdminFunctionality"></activity>
+        <activity android:name=".AdminFunctionality" />
+        <activity android:name=".AdminCreateService"></activity>
     </application>
 
 </manifest>
