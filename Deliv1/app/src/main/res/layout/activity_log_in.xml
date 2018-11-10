@@ -23,7 +23,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/editTextUsername"
+            android:id="@+id/editTextUsernameLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -38,7 +38,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/editTextPassword"
+            android:id="@+id/editTextPasswordLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -48,7 +48,13 @@
             android:id="@+id/btnValidateLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="btnValidateLoginClick"
             android:text="Log In"
             android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/loginFeedbackTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

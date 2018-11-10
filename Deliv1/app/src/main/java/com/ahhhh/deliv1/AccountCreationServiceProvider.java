@@ -26,13 +26,17 @@ public class AccountCreationServiceProvider extends AppCompatActivity {
             ((TextView)findViewById(R.id.feedbackTextView)).setText(account.validateEnteredInfo());
         } else{
             //SAVE INFO TO DATABASE HERE FEMALE, AS LONG AS THE USERNAME or PASSWORD DON'T EXIST ALREADY
-            //if(they don't exist){
-            Intent i =new Intent(AccountCreationServiceProvider.this, WelcomeServiceProvider.class);
-            i.putExtra("firstName", firstName);
-            startActivity(i);
-            //} else {
-            //((TextView)findViewById(R.id.feedbackTextView)).setText("Username and/or password already exist. Try again.");
-            //}
+            MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+            if (myDBHelper.usernameExist(username)) {
+                ((TextView)findViewById(R.id.feedbackTextView)).setText("Username already exists. Please enter a different one.");
+            }
+            else {
+                myDBHelper.addUserAccount(firstName, lastName, username, password, 1);
+                Intent i =new Intent(AccountCreationServiceProvider.this, WelcomeServiceProvider.class);
+                i.putExtra("firstName", firstName);
+                startActivity(i);
+            }
+
         }
     }
 }
