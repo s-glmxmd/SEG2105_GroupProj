@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
 import android.content. ContentValues;
 import android.database.Cursor;
+import android.os.DropBoxManager;
 
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
@@ -12,7 +13,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ahhhhDB.db";
 
     public static final String TABLE_NAME = "ApplicationTable";
-    public static final String COLUMN_PRIMARY_KEY = "_id";
+    public static final String COLUMN_PRIMARY_KEY_APP = "_id";
     public static final String COLUMN_USERNAME = "Username";
     public static final String COLUMN_PASSWORD = "Password";
 
@@ -26,53 +27,49 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PHONE_NUMBER = "PhoneNumber";
 
 
+    public static final String SERVICES_TABLE = "Services";
+    public static final String COLUMN_PRIMARY_KEY_SERVICE = "_id";
+    public static final String COLUMN_SERVICE_TITLE = "ServiceTittle";
+    public static final String COLUMN_SERVICE_RATE = "ServiceRate";
+
+
+
+
 
 
     public MyDatabaseHelper (Context context) {
         super (context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    private int primaryCredentials = 0;
-    private int primaryAccount = 0;
-    private int primaryReference = 0;
-
-    public int getPrimaryCredentials() {
-        return this.primaryCredentials;
-    }
-    public void incrementPrimaryCredentials() {
-        this.primaryCredentials ++;
-    }
-
-    public int getPrimaryAccount() {
-        return this.primaryAccount;
-    }
-    public void incrementPrimaryAccount() {
-        this.primaryAccount ++;
-    }
-    public int getPrimaryReference() {
-        return this.primaryReference;
-    }
-    public void incrementPrimaryRefence() {
-        this.primaryReference ++;
-    }
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USER_APPLICATION_TABLE = "CREATE TABLE " +
                 TABLE_NAME + "(" +
-                COLUMN_PRIMARY_KEY +
+                COLUMN_PRIMARY_KEY_APP +
                 " INTEGER PRIMARY KEY," + COLUMN_USERNAME +
                 " TEXT," + COLUMN_PASSWORD +
                 " TEXT, " +  COLUMN_FIRST_NAME + " TEXT, "
                 + COLUMN_LAST_NAME + " TEXT, " +
                 COLUMN_ACCOUNT_TYPE + " INTEGER, " +
                 COLUMN_EMAIL_ADDRESS + " TEXT, " +
-                COLUMN_PHONE_NUMBER + " TEXT" +
+                COLUMN_PHONE_NUMBER + " TEXT, " +
+                COLUMN_SERVICE_TITLE + " TEXT, " +
+                COLUMN_SERVICE_RATE + " REAL " +
                 ")";
 
-
         db.execSQL(CREATE_USER_APPLICATION_TABLE);
+
+        String CREATE_SERVICE_INFO_TABLE = "CREATE TABLE " +
+                SERVICES_TABLE + "(" +
+                COLUMN_PRIMARY_KEY_SERVICE +
+                "INTEGER PRIMARY KEY, " +
+                COLUMN_SERVICE_TITLE + " TEXT, " +
+                COLUMN_SERVICE_RATE + " REAL " +
+                ")";
+
+        db.execSQL(CREATE_SERVICE_INFO_TABLE);
 
 
     }
@@ -82,7 +79,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + SERVICES_TABLE);
         onCreate(db);
+
+
     }
 
 
@@ -261,6 +261,35 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(TABLE_NAME, null, values);
         db.close();
+    }
+
+
+
+    public void addService (String serviceDescription, double rateForService) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_SERVICE_TITLE, serviceDescription.toLowerCase());
+        values.put(COLUMN_SERVICE_RATE, rateForService);
+
+        db.insert(SERVICES_TABLE, null, values);
+        db.close();
+    }
+
+    public void removeService(String serviceDescription, double rateForService) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT * FROM " + SERVICES_TABLE +
+                " WHERE " + COLUMN_SERVICE_TITLE + " = \"" + serviceDescription.toLowerCase() + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            String serviceID = cursor.getString(0);
+            db.delete(SERVICES_TABLE, COLUMN_PRIMARY_KEY_SERVICE + " = " + serviceID + " AND " + COLUMN_SERVICE_RATE + " = " + rateForService, null);
+            cursor.close();
+        }
+        db.close();
+
     }
 
 

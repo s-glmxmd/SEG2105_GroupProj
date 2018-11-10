@@ -24,7 +24,7 @@ public class AdminFunctionality extends AppCompatActivity {
 
     public void btnDeleteServiceClick(View view){
 
-        LinearLayout layout = ((LinearLayout) findViewById(R.id.layoutServices));
+        LinearLayout layout = findViewById(R.id.layoutServices);
 
         //get index of each child, iterate through children, check if first child is checked, delete that thi
         int numChildren=layout.getChildCount();
@@ -35,8 +35,14 @@ public class AdminFunctionality extends AppCompatActivity {
             if(tempCheckBox.isChecked()){
                 String tempCheckBoxText=tempCheckBox.getText().toString();
                 String tempHourlyRate = ((TextView) tempLayout.getChildAt(1)).getText().toString();
+                double hourlyRate = Double.parseDouble(tempHourlyRate);
                 //remove the corresponding service from the db, may need to get the hourly rate selected
                 //could have multiple services with same name but different hourly rates
+
+                MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+
+                myDBHelper.removeService(tempCheckBoxText, hourlyRate);
+
 
 
                 //reload page (data will be added to layout again, may have to remove it all first, test this
