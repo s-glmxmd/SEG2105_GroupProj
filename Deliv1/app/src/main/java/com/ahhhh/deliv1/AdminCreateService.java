@@ -26,6 +26,12 @@ public class AdminCreateService extends AppCompatActivity {
             ((TextView)findViewById(R.id.editTextServiceName)).setText(errorMessage);
         } else{
             //save service to database
+            double rateForService = createdService.hourlyRate;
+            MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+
+
+            myDBHelper.addService(serviceName, rateForService);
+
             startActivity(new Intent(AdminCreateService.this, AdminFunctionality.class));
         }
     }
