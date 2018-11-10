@@ -77,6 +77,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
@@ -102,11 +104,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             //an admin account was found
             cursor.close();
             db.close();
-            return false;
+            return true;
         }
         cursor.close();
         db.close();
-        return true;
+        return false;
 
     }
 
@@ -163,39 +165,30 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public String accountType(String username) {
-        int primaryKeyUserCre = -1;
-        int keyToReturn = 0;
         String description = "";
-
+        int accountTypeFromDB = 0;
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + COLUMN_PRIMARY_KEY + " FROM " +
+        String query = "SELECT " + COLUMN_ACCOUNT_TYPE + " FROM " +
                 TABLE_NAME + " WHERE " + COLUMN_USERNAME
                 + " = \"" + username + "\"";
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
-            primaryKeyUserCre = Integer.parseInt(cursor.getString(0));
-            query = "SELECT " + COLUMN_ACCOUNT_TYPE + " FROM " +
-                    TABLE_NAME + " WHERE " + COLUMN_PRIMARY_KEY
-                    + " = \"" + primaryKeyUserCre + "\"";
-            cursor = db.rawQuery(query, null);
-
-            if (cursor.moveToFirst()) {
-                keyToReturn = Integer.parseInt(cursor.getString(0));
-
-                query = "SELECT " + DatabaseReferences.ReferenceCodes.DESCRIPTION + " FROM " +
-                        DatabaseReferences.ReferenceCodes.TABLE_NAME + " WHERE " +
-                        DatabaseReferences.ReferenceCodes.CODE_TYPE + "=\"" + 1 + "\"" + " AND " +
-                        DatabaseReferences.ReferenceCodes.CODE + "=\"" + keyToReturn +
-                        "\"";
-                cursor = db.rawQuery(query, null);
-
-                if (cursor.moveToFirst()) {
-                    description = cursor.getString(0);
-                    cursor.close();
-                }
-            }
-
+            accountTypeFromDB = cursor.getInt(0);
+            cursor.close();
         }
+        if (accountTypeFromDB == 1) {
+            description = "Administrator";
+        }
+        else if (accountTypeFromDB == 2) {
+            description = "Homeowner";
+        }
+        else if (accountTypeFromDB == 3) {
+            description = "ServiceProvider";
+        }
+        else {
+            description = "This failed";
+        }
+
         db.close();
         return description;
 
@@ -222,6 +215,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     */
+    /**
     public void deleteUserAccount(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -237,7 +231,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
         db.close();
     }
-
+     */
 
     /**
      * Inserting user account information in the database
@@ -246,7 +240,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
      * @param lName last name of new user
      * @param username username of account created
      * @param password password for account login validation
-     * @param accountType integer where 1 represents an Admin account, 2 represents a HomeOwner and
+     * @param accountType integer where
+     *                    1 represents an Admin account,
+     *                    2 represents a HomeOwner and
      *                    3 represents a ServiceProvider
      *
      *                    NOTE: Will most likely either create a Enum type or add a new table
