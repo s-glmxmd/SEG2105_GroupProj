@@ -31,8 +31,8 @@ public class AdminCreateService extends AppCompatActivity {
 
 
             myDBHelper.addService(serviceName, rateForService);
-
-            startActivity(new Intent(AdminCreateService.this, AdminFunctionality.class));
+            //AdminFunctionality.addServiceReturned(serviceName, rateForService);
+            startActivity(new Intent(AdminCreateService.this, ServiceInfoActivity.class));
         }
     }
 

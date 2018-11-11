@@ -24,7 +24,9 @@
         <activity android:name=".WelcomeServiceProvider" />
         <activity android:name=".LogIn" />
         <activity android:name=".AdminFunctionality" />
-        <activity android:name=".AdminCreateService"></activity>
+        <activity android:name=".AdminCreateService" />
+        <activity android:name=".ServiceInfoActivity" />
+        <activity android:name=".AddOrDeleteService"></activity>
     </application>
 
 </manifest>

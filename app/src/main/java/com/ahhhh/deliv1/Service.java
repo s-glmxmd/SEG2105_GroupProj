@@ -22,6 +22,19 @@ public class Service {
             this.hourlyRate=-1.0;
         }
     }
+    public Service(String title, double hourlyRate){
+        this.title = title;
+        this.hourlyRate = hourlyRate;
+    }
+
+    public String getServiceName(){
+        return title;
+    }
+
+    public double getHourlyRate(){
+        return hourlyRate;
+    }
+
 
     public String validateEnteredInfo(){
         if(title.equals("")){
