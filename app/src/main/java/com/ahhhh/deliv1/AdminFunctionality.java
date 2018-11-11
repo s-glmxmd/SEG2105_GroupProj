@@ -34,7 +34,7 @@ public class AdminFunctionality extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_functionality);
 
-        adapter=new ArrayAdapter<Service>(this, android.R.layout.simple_list_item_1, listItems);
+        //adapter=new ArrayAdapter<Service>(this, android.R.layout.simple_list_item_1, listItems);
 
         //listItems.setAdapter(adapter);
        // setListAdapter(adapter);
@@ -49,7 +49,7 @@ public class AdminFunctionality extends AppCompatActivity {
 
     public void btnDeleteServiceClick(View view){
 
-        LinearLayout layout = ((LinearLayout) findViewById(R.id.layoutServices));
+        LinearLayout layout = findViewById(R.id.layoutServices);
 
         //get index of each child, iterate through children, check if first child is checked, delete that thi
         int numChildren=layout.getChildCount();
@@ -63,6 +63,10 @@ public class AdminFunctionality extends AppCompatActivity {
                 //remove the corresponding service from the db, may need to get the hourly rate selected
                 //could have multiple services with same name but different hourly rates
 
+                double hourlyRate = Double.parseDouble(tempHourlyRate);
+                MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+
+                myDBHelper.removeService(tempCheckBoxText, hourlyRate);
 
                 //reload page (data will be added to layout again, may have to remove it all first, test this
                 startActivity(new Intent(AdminFunctionality.this, AdminFunctionality.class));
@@ -75,8 +79,9 @@ public class AdminFunctionality extends AppCompatActivity {
     }
 
 
-    public static void addServiceReturned(String serviceName, double serviceRate){
-        listItems.add(new Service(serviceName, serviceRate));
+    public void addServiceReturned(String serviceName, double serviceRate){
+        MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+        myDBHelper.addService(serviceName, serviceRate);
         adapter.notifyDataSetChanged();
     }
 

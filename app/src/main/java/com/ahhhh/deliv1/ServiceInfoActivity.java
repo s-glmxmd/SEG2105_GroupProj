@@ -17,12 +17,16 @@ public class ServiceInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_info);
-        ArrayList<Service> itemsList = new ArrayList<Service>();
+        MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+
+
+
+        ArrayList<Service> itemsList = myDBHelper.getServices();
+
         //you can add service like this from db
-        itemsList.add(new Service("Plumbing", 15.0));
         //LOAD all FROM DB
-        ListView listView = (ListView) findViewById(R.id.list);
-        CustomAdapter adapter = new CustomAdapter(this,itemsList);
+        ListView listView = findViewById(R.id.list);
+        CustomAdapter adapter = new CustomAdapter(this, itemsList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
