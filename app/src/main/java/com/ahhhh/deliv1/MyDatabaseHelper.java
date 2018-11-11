@@ -5,6 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
 import android.content. ContentValues;
 import android.database.Cursor;
+import android.os.DropBoxManager;
+import android.os.strictmode.SqliteObjectLeakedViolation;
+
+import java.util.ArrayList;
 
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
@@ -12,7 +16,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ahhhhDB.db";
 
     public static final String TABLE_NAME = "ApplicationTable";
-    public static final String COLUMN_PRIMARY_KEY = "_id";
+    public static final String COLUMN_PRIMARY_KEY_APP = "_id";
     public static final String COLUMN_USERNAME = "Username";
     public static final String COLUMN_PASSWORD = "Password";
 
@@ -25,14 +29,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_EMAIL_ADDRESS = "EmailAddress";
     public static final String COLUMN_PHONE_NUMBER = "PhoneNumber";
 
+
+    public static final String SERVICES_TABLE = "Services";
+    public static final String COLUMN_PRIMARY_KEY_SERVICE = "_id";
     public static final String COLUMN_SERVICE_TITLE = "ServiceTittle";
     public static final String COLUMN_SERVICE_RATE = "ServiceRate";
 
-    public static final String ALTER_APP_TABLE_SERVICE_TITLE = "ALTER TABLE " +
-            TABLE_NAME + " ADD " + COLUMN_SERVICE_TITLE + " TEXT";
 
-    public static final String ALTER_APP_TABLE_SERVICE_RATE = "ALTER TABLE " +
-            TABLE_NAME + " ADD " + COLUMN_SERVICE_RATE + " REAL";
 
 
 
@@ -47,30 +50,39 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USER_APPLICATION_TABLE = "CREATE TABLE " +
                 TABLE_NAME + "(" +
-                COLUMN_PRIMARY_KEY +
+                COLUMN_PRIMARY_KEY_APP +
                 " INTEGER PRIMARY KEY," + COLUMN_USERNAME +
                 " TEXT," + COLUMN_PASSWORD +
                 " TEXT, " +  COLUMN_FIRST_NAME + " TEXT, "
                 + COLUMN_LAST_NAME + " TEXT, " +
                 COLUMN_ACCOUNT_TYPE + " INTEGER, " +
                 COLUMN_EMAIL_ADDRESS + " TEXT, " +
-                COLUMN_PHONE_NUMBER + " TEXT" +
+                COLUMN_PHONE_NUMBER + " TEXT " +
                 ")";
-
 
         db.execSQL(CREATE_USER_APPLICATION_TABLE);
 
-        db.execSQL(ALTER_APP_TABLE_SERVICE_TITLE);
-        db.execSQL(ALTER_APP_TABLE_SERVICE_RATE);
+        String CREATE_SERVICE_INFO_TABLE = "CREATE TABLE " +
+                SERVICES_TABLE + "(" +
+                COLUMN_PRIMARY_KEY_SERVICE +
+                "INTEGER PRIMARY KEY, " +
+                COLUMN_SERVICE_TITLE + " TEXT, " +
+                COLUMN_SERVICE_RATE + " REAL " +
+                ")";
+
+        db.execSQL(CREATE_SERVICE_INFO_TABLE);
 
 
     }
 
 
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + SERVICES_TABLE);
         onCreate(db);
+
 
     }
 
@@ -153,15 +165,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    /**
-     * Method to find the account type of a specific user after login
-     *
-     * NOTE:    Currently the account types are being stored as integers in the Database and their values are
-     *          then tested and converted to strings. Will need to change the strings to Enum types later on
-     *
-     * @param username to search through database for
-     * @return string representation of account type saved in database
-     */
     public String accountType(String username) {
         String description = "";
         int accountTypeFromDB = 0;
@@ -200,35 +203,35 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
      *      db
      */
     /**
-    public void addReferenceCode(int code, int codeType, String description) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
+     public void addReferenceCode(int code, int codeType, String description) {
+     SQLiteDatabase db = this.getWritableDatabase();
+     ContentValues values = new ContentValues();
 
-        values.put(DatabaseReferences.ReferenceCodes.CODE, code);
-        values.put(DatabaseReferences.ReferenceCodes.CODE_TYPE, codeType);
-        values.put(DatabaseReferences.ReferenceCodes.DESCRIPTION, description);
+     values.put(DatabaseReferences.ReferenceCodes.CODE, code);
+     values.put(DatabaseReferences.ReferenceCodes.CODE_TYPE, codeType);
+     values.put(DatabaseReferences.ReferenceCodes.DESCRIPTION, description);
 
-        db.insert(DatabaseReferences.ReferenceCodes.TABLE_NAME, null, values);
-        db.close();
-    }
+     db.insert(DatabaseReferences.ReferenceCodes.TABLE_NAME, null, values);
+     db.close();
+     }
 
-    */
+     */
     /**
-    public void deleteUserAccount(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
+     public void deleteUserAccount(int id) {
+     SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "Select * FROM " + TABLE_NAME + " WHERE " +
-                COLUMN_PRIMARY_KEY+ " = \"" + id + "\"";
-        Cursor cursor = db.rawQuery(query, null);
+     String query = "Select * FROM " + TABLE_NAME + " WHERE " +
+     COLUMN_PRIMARY_KEY+ " = \"" + id + "\"";
+     Cursor cursor = db.rawQuery(query, null);
 
-        if (cursor.moveToFirst()) {
-            String idStr = cursor.getString(0);
-            db.delete(TABLE_NAME, COLUMN_PRIMARY_KEY+ " = " + idStr, null);
-            cursor.close();
+     if (cursor.moveToFirst()) {
+     String idStr = cursor.getString(0);
+     db.delete(TABLE_NAME, COLUMN_PRIMARY_KEY+ " = " + idStr, null);
+     cursor.close();
 
-        }
-        db.close();
-    }
+     }
+     db.close();
+     }
      */
 
     /**
@@ -261,16 +264,62 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
+
     public void addService (String serviceDescription, double rateForService) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_SERVICE_TITLE, serviceDescription);
+        values.put(COLUMN_SERVICE_TITLE, serviceDescription.toLowerCase());
         values.put(COLUMN_SERVICE_RATE, rateForService);
 
-        db.insert(TABLE_NAME, null, values);
+        db.insert(SERVICES_TABLE, null, values);
         db.close();
     }
+
+    public void removeService(String serviceDescription, double rateForService) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT * FROM " + SERVICES_TABLE +
+                " WHERE " + COLUMN_SERVICE_TITLE + " = \"" + serviceDescription.toLowerCase() + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            String serviceID = cursor.getString(0);
+            db.delete(SERVICES_TABLE, COLUMN_PRIMARY_KEY_SERVICE + " = " + serviceID + " AND " + COLUMN_SERVICE_RATE + " = " + rateForService, null);
+            cursor.close();
+        }
+        db.close();
+
+    }
+
+    public void updateServiceInfo(String oldServiceDesc, double oldRate, String newServiceDesc, double newRate) {
+        removeService(oldServiceDesc, oldRate);
+        addService(newServiceDesc, newRate);
+    }
+
+    public ArrayList<Service> getServices() {
+        ArrayList<Service> services = new ArrayList<Service>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + COLUMN_SERVICE_TITLE + ", " + COLUMN_SERVICE_RATE +
+                " FROM " + SERVICES_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String desc = cursor.getString(0);
+                double rate = Double.parseDouble(cursor.getString(1));
+                Service service = new Service(desc, rate);
+                services.add(service);
+            } while (cursor.moveToNext());
+        }
+
+        return services;
+
+    }
+
 
 
 }
