@@ -32,7 +32,6 @@ public class ServiceInfoActivity extends AppCompatActivity {
                 //intent.putExtra("name",classes[i]);
                 startActivity(intent);
 
-
             }
         });
 
