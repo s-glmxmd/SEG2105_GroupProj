@@ -25,8 +25,8 @@ public class ServiceInfoActivity extends AppCompatActivity {
 
         //you can add service like this from db
         //LOAD all FROM DB
-        ListView listView = findViewById(R.id.list);
-        CustomAdapter adapter = new CustomAdapter(this, itemsList);
+        ListView listView = (ListView) findViewById(R.id.list);
+        CustomAdapter adapter = new CustomAdapter(this,itemsList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -1,6 +1,7 @@
 package com.ahhhh.deliv1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +29,8 @@ public class AddOrDeleteService extends AppCompatActivity {
         Toast toast = Toast.makeText(context, incorrectPassword, duration);
         toast.show();
 
+        startActivity(new Intent(AddOrDeleteService.this, ServiceInfoActivity.class));
+
         //edit from db
     }
     public void buttonRemoveService(View view){
@@ -40,6 +43,8 @@ public class AddOrDeleteService extends AppCompatActivity {
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, incorrectPassword, duration);
         toast.show();
+
+        startActivity(new Intent(AddOrDeleteService.this, ServiceInfoActivity.class));
 
     }
 }
