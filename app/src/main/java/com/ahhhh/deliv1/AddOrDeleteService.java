@@ -8,26 +8,38 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+
 public class AddOrDeleteService extends AppCompatActivity {
 
-    public String oldDescription = ((EditText)findViewById(R.id.name)).getText().toString();
-    public Double oldRateForService = Double.parseDouble( ((EditText)findViewById(R.id.hourlyRate)).getText().toString());
+    public String oldDescription ;
+    public Double oldRateForService;
+    public String newDescription;
+    public Double newHourlyRate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_or_delete_service);
     }
     public void buttonEditService(View view){
-        MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
-        String newDesc = ((EditText)findViewById(R.id.name)).getText().toString();
-        double newRate = Double.parseDouble(((EditText)findViewById(R.id.hourlyRate)).getText().toString());
+        oldDescription = ((EditText)findViewById(R.id.name)).getText().toString();
+        oldRateForService = Double.parseDouble( ((EditText)findViewById(R.id.hourlyRate)).getText().toString());
+        newDescription = ((EditText)findViewById(R.id.newText)).getText().toString();
+        newHourlyRate = Double.parseDouble( ((EditText)findViewById(R.id.newRate)).getText().toString());
 
-        myDBHelper.updateServiceInfo(oldDescription, oldRateForService, newDesc, newRate);
+
+        MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+        //String newDesc = ((EditText)findViewById(R.id.name)).getText().toString();
+        //double newRate = Double.parseDouble(((EditText)findViewById(R.id.hourlyRate)).getText().toString());
+
+        myDBHelper.updateServiceInfo(oldDescription, oldRateForService, newDescription, newHourlyRate);
         Context context = getApplicationContext();
         CharSequence incorrectPassword = "Service info was updated!";
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, incorrectPassword, duration);
         toast.show();
+        startActivity(new Intent(AddOrDeleteService.this, ServiceInfoActivity.class));
+
 
         startActivity(new Intent(AddOrDeleteService.this, ServiceInfoActivity.class));
 
@@ -35,6 +47,13 @@ public class AddOrDeleteService extends AppCompatActivity {
     }
     public void buttonRemoveService(View view){
         //remove from DB
+
+        oldDescription = ((EditText)findViewById(R.id.name)).getText().toString();
+        oldRateForService = Double.parseDouble( ((EditText)findViewById(R.id.hourlyRate)).getText().toString());
+        newDescription = ((EditText)findViewById(R.id.newText)).getText().toString();
+        newHourlyRate = Double.parseDouble( ((EditText)findViewById(R.id.newRate)).getText().toString());
+
+
         MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
 
         myDBHelper.removeService(oldDescription, oldRateForService);
@@ -43,6 +62,7 @@ public class AddOrDeleteService extends AppCompatActivity {
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, incorrectPassword, duration);
         toast.show();
+        startActivity(new Intent(AddOrDeleteService.this, ServiceInfoActivity.class));
 
         startActivity(new Intent(AddOrDeleteService.this, ServiceInfoActivity.class));
 

@@ -286,7 +286,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             String serviceID = cursor.getString(0);
-            db.delete(SERVICES_TABLE, COLUMN_PRIMARY_KEY_SERVICE + " = " + serviceID + " AND " + COLUMN_SERVICE_RATE + " = " + rateForService, null);
+            db.delete(SERVICES_TABLE, COLUMN_PRIMARY_KEY_SERVICE + " = " + serviceID , null);
             cursor.close();
         }
         db.close();
