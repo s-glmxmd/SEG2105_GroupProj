@@ -21,19 +21,21 @@ public class ServiceInfoActivity extends AppCompatActivity {
 
 
 
-        ArrayList<Service> itemsList = myDBHelper.getServices();
+        final ArrayList<Service> itemsList = myDBHelper.getServices();
 
         //you can add service like this from db
         //LOAD all FROM DB
-        ListView listView = (ListView) findViewById(R.id.list);
+        ListView listView = findViewById(R.id.list);
         CustomAdapter adapter = new CustomAdapter(this,itemsList);
         listView.setAdapter(adapter);
+        listView.setClickable(true);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(),AddOrDeleteService.class);
-                //intent.putExtra("name",classes[i]);
+                Intent intent = new Intent(getApplicationContext(), AddOrDeleteService.class);
+                intent.putExtra("name", itemsList.get(i).getServiceName());
+                intent.putExtra("hourlyRate", itemsList.get(i).getHourlyRate());
                 startActivity(intent);
 
             }
@@ -42,17 +44,6 @@ public class ServiceInfoActivity extends AppCompatActivity {
 
     }
 
-/*
-    @Override
-    protected void onListItemClick(ListView listView, View v, int position, long id) {
-        // TODO Auto-generated method stub
-        super.onListItemClick(listView, v, position, id);
-
-        Intent intent = new Intent(this, AddOrDeleteService.class);
-        startActivity(intent);
 
 
-    }
-*/
-
-    }
+}

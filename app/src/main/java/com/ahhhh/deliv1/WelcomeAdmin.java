@@ -18,6 +18,6 @@ public class WelcomeAdmin extends AppCompatActivity {
     }
 
     public void btnProceedClick(View view){
-        startActivity(new Intent(WelcomeAdmin.this, AdminFunctionality.class));
+        startActivity(new Intent(WelcomeAdmin.this, ServiceInfoActivity.class));
     }
 }

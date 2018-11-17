@@ -32,7 +32,7 @@ public class AccountCreationHomeowner extends AppCompatActivity {
                 ((TextView)findViewById(R.id.feedbackTextView)).setText("Username already exists. Please enter a different one.");
             }
             else {
-                myDBHelper.addUserAccount(firstName, lastName, username, password, 1);
+                myDBHelper.addUserAccount(firstName, lastName, username, password, 2);
                 Intent i =new Intent(AccountCreationHomeowner.this, WelcomeHomeowner.class);
                 i.putExtra("firstName", firstName);
                 startActivity(i);

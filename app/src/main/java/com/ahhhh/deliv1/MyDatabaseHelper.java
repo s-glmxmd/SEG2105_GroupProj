@@ -270,7 +270,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_SERVICE_TITLE, serviceDescription.toLowerCase());
+        values.put(COLUMN_SERVICE_TITLE, serviceDescription);
         values.put(COLUMN_SERVICE_RATE, rateForService);
 
         db.insert(SERVICES_TABLE, null, values);
@@ -280,22 +280,30 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void removeService(String serviceDescription, double rateForService) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "SELECT * FROM " + SERVICES_TABLE +
-                " WHERE " + COLUMN_SERVICE_TITLE + " = \"" + serviceDescription.toLowerCase() + "\"";
+        String query = "SELECT " + COLUMN_SERVICE_RATE +  " FROM " + SERVICES_TABLE +
+                " WHERE " + COLUMN_SERVICE_TITLE + " = \"" + serviceDescription + "\"" +
+                " AND " + COLUMN_SERVICE_RATE + " = " + rateForService;
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
-            String serviceID = cursor.getString(0);
-            db.delete(SERVICES_TABLE, COLUMN_PRIMARY_KEY_SERVICE + " = " + serviceID , null);
-            cursor.close();
+            db.delete(SERVICES_TABLE, COLUMN_SERVICE_TITLE + " =? AND " + COLUMN_SERVICE_RATE + " = ?" , new String[]{serviceDescription, String.valueOf(rateForService)} );
         }
+        cursor.close();
         db.close();
 
     }
 
     public void updateServiceInfo(String oldServiceDesc, double oldRate, String newServiceDesc, double newRate) {
-        removeService(oldServiceDesc, oldRate);
-        addService(newServiceDesc, newRate);
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+
+        values.put(COLUMN_SERVICE_TITLE, newServiceDesc);
+        values.put(COLUMN_SERVICE_RATE, newRate);
+
+        db.update(SERVICES_TABLE, values, COLUMN_SERVICE_TITLE + " =? AND " + COLUMN_SERVICE_RATE + " = ?" , new String[]{oldServiceDesc, String.valueOf(oldRate)});
+
+        db.close();
     }
 
     public ArrayList<Service> getServices() {
