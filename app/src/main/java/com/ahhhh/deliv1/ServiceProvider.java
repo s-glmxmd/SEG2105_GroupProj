@@ -37,6 +37,8 @@ public class ServiceProvider extends UserAccount {
 
     public void setCompanyName(String cName) {
         companyName = cName;
+
+
     }
 
 
