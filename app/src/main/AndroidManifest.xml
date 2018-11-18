@@ -26,7 +26,9 @@
         <activity android:name=".AdminFunctionality" />
         <activity android:name=".AdminCreateService" />
         <activity android:name=".ServiceInfoActivity" />
-        <activity android:name=".AddOrDeleteService"></activity>
+        <activity android:name=".AddOrDeleteService" />
+        <activity android:name=".ServiceProviderFunctionality" />
+        <activity android:name=".ServiceSelector"></activity>
     </application>
 
 </manifest>
