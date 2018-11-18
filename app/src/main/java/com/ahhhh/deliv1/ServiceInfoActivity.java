@@ -44,6 +44,12 @@ public class ServiceInfoActivity extends AppCompatActivity {
 
     }
 
+    public void btnCreateServiceClick(View view) {
+
+        Intent i = new Intent(ServiceInfoActivity.this, AdminCreateService.class);
+        startActivity(i);
+    }
+
 
 
 }
