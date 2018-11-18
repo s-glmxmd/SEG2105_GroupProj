@@ -8,6 +8,16 @@ import android.database.Cursor;
 import android.os.DropBoxManager;
 import android.os.strictmode.SqliteObjectLeakedViolation;
 
+
+import org.apache.commons.lang3.SerializationUtils;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.sql.Blob;
 import java.util.ArrayList;
 
 
@@ -39,7 +49,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String SERVICE_PROVIDERS = "ServiceProvider";
     public static final String C_PRIMARY_SERVICE_PROVIDER = "_id";
-    public static final String COLUMN_ADDRESS_UNIT = "AddressUnit";
     public static final String COLUMN_ADDRESS_NAME = "AddressName";
     public static final String COLUMN_ADDRESS_COUNTRY = "Country";
     public static final String COLUMN_ADDRESS_POSTAL = "PostalCode";
@@ -87,7 +96,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 SERVICE_PROVIDERS + "( " +
                 C_PRIMARY_SERVICE_PROVIDER + " INTEGER PRIMARY KEY, " +
                 COLUMN_USERNAME + " TEXT, " +
-                COLUMN_ADDRESS_UNIT + " INTEGER, " +
                 COLUMN_ADDRESS_NAME + " TEXT, " +
                 COLUMN_ADDRESS_PROVINCE + " TEXT, " +
                 COLUMN_ADDRESS_COUNTRY + " TEXT, " +
@@ -368,8 +376,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
 
 
-        if (cursor.moveToFirst()) {
 
+        if (cursor.moveToFirst()) {
+            do {
+                byte[] value = cursor.getBlob(0);
+                services.add((Service)SerializationUtils.deserialize(value));
+            }while (cursor.moveToNext());
         }
 
         return services;
