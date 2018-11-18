@@ -49,14 +49,18 @@ public class LogIn extends AppCompatActivity {
                 //add the following when the 3 welcome pages are done
                 if(accountType.equals("Administrator")){
                     Intent i = new Intent(LogIn.this, WelcomeAdmin.class);
-                    i.putExtra("username", username);
+                    i.putExtra("name", username);
                     startActivity(i);
 
                     //startActivity(new Intent(LogIn.this, WelcomeAdmin.class));
                 } else if(accountType.equals("Homeowner")){
-                    startActivity(new Intent(LogIn.this, WelcomeHomeowner.class));
+                    Intent i = new Intent(LogIn.this, WelcomeHomeowner.class);
+                    i.putExtra("name", username);
+                    startActivity(i);
                 } else if(accountType.equals("ServiceProvider")){
-                    startActivity(new Intent(LogIn.this, WelcomeServiceProvider.class));
+                    Intent i = new Intent(LogIn.this, WelcomeServiceProvider.class);
+                    i.putExtra("name", username);
+                    startActivity(i);
                 }
                 else {
                     Context context = getApplicationContext();
