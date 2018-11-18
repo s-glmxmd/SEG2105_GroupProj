@@ -13,7 +13,7 @@ public class WelcomeAdmin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_admin);
         Bundle passedVals = getIntent().getExtras();
-        String firstName=passedVals.getString("firstName");
+        String firstName=passedVals.getString("username");
         ((TextView)findViewById(R.id.textViewWelcome)).setText("Welcome "+firstName+". You are signed in as an Admin.");
     }
 

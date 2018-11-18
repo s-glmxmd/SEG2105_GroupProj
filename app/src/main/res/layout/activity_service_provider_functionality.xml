@@ -74,13 +74,7 @@
                     android:textColor="@android:color/background_dark" />
 
                 <TextView
-                    android:id="@+id/txtAddressID"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-
-                <TextView
-                    android:id="@+id/txtStreet"
+                    android:id="@+id/txtStreetAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView" />

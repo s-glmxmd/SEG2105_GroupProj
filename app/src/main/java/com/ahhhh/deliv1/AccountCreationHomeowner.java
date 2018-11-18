@@ -34,7 +34,7 @@ public class AccountCreationHomeowner extends AppCompatActivity {
             else {
                 myDBHelper.addUserAccount(firstName, lastName, username, password, 2);
                 Intent i =new Intent(AccountCreationHomeowner.this, WelcomeHomeowner.class);
-                i.putExtra("firstName", firstName);
+                i.putExtra("username", firstName);
                 startActivity(i);
             }
         }

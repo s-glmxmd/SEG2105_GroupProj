@@ -11,7 +11,7 @@ public class WelcomeServiceProvider extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_service_provider);
         Bundle passedVals = getIntent().getExtras();
-        String firstName=passedVals.getString("firstName");
+        String firstName=passedVals.getString("username");
         ((TextView)findViewById(R.id.textViewWelcome)).setText("Welcome "+firstName+". You are signed in as a Service Provider.");
     }
 }
