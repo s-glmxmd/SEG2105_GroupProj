@@ -375,8 +375,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(query, null);
 
-
-
         if (cursor.moveToFirst()) {
             do {
                 byte[] value = cursor.getBlob(0);
@@ -384,9 +382,45 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
 
+        cursor.close();
+        db.close();
         return services;
     }
 
+
+    public void addService(String username, Service service) {
+        ArrayList<Service> services = this.getServices(username);
+        services.add(service);
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        byte[] data = SerializationUtils.serialize(services);
+
+        values.put(COLUMN_SERVICES, data);
+
+        db.update(SERVICE_PROVIDERS, values, COLUMN_USERNAME + "=?", new String[]{username});
+
+        db.close();
+    }
+
+    public boolean removeService(String username, Service service) {
+        ArrayList<Service> services = this.getServices(username);
+        boolean val;
+        val = services.remove(service);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        byte[] data = SerializationUtils.serialize(services);
+
+        values.put(COLUMN_SERVICES, data);
+
+        db.update(SERVICE_PROVIDERS, values, COLUMN_USERNAME + "=?", new String[]{username});
+
+        db.close();
+
+        return val;
+    }
 
 
 }

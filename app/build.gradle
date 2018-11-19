@@ -33,7 +33,7 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.6'
     implementation group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.5.1'
     implementation (group: 'org.apache.httpcomponents' , name: 'httpmime' , version: '4.3.5') {
-        exclude module: 'org.apache.httpcomponents:httpclient'}
+        exclude group: 'org.apache.httpcomponents', module:'httpclient' }
 }
 
 
