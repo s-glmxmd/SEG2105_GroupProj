@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateSpProfile">
+
+    <LinearLayout
+        android:id="@+id/layoutProfileInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address (Mandatory Field):"
+            android:textColor="@android:color/background_dark" />
+
+        <EditText
+            android:id="@+id/edtxtStreetAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Building Number, Street, Apartment Number if Necessary"
+            android:inputType="textPersonName"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/edtxtProvince"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Province/State"
+            android:inputType="textPersonName"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/edtxtCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Country"
+            android:inputType="textPersonName"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/edtxtPostal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Postal Code"
+            android:inputType="textPersonName"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/title4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone Number (Mandatory Field):"
+            android:textColor="@android:color/background_dark" />
+
+        <EditText
+            android:id="@+id/edtxtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="##########"
+            android:inputType="textPersonName"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/title5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name of Company:"
+            android:textColor="@android:color/background_dark" />
+
+        <EditText
+            android:id="@+id/edtxtCompany"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/title6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description:"
+            android:textColor="@android:color/background_dark" />
+
+        <EditText
+            android:id="@+id/edtxtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="12sp" />
+
+        <CheckBox
+            android:id="@+id/chkLicense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Licensed? (Check if you are, leave blank if you aren't)" />
+
+        <Button
+            android:id="@+id/btnComplete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Complete Profile Creation" />
+
+        <TextView
+            android:id="@+id/txtError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
