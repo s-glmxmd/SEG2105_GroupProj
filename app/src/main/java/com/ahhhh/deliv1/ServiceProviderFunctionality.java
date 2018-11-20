@@ -28,7 +28,7 @@ public class ServiceProviderFunctionality extends AppCompatActivity {
 
         //if mandatory fields have not been filled, make the only option available create profile
         if(tempSP.getWorkerAddress()==null){
-            ViewGroup profileInfo = (ViewGroup) findViewById(R.id.layoutProfileInfo);
+            ViewGroup profileInfo = findViewById(R.id.layoutProfileInfo);
             profileInfo.removeAllViews();
         } else{
             Button createProfileBtn = findViewById(R.id.btnCreateProfile);
@@ -61,5 +61,11 @@ public class ServiceProviderFunctionality extends AppCompatActivity {
     }
     public void btnEditProfileClick(View view){
         btnCreateProfileClick(view);
+    }
+
+    public void setAvailibilityButton(View view){
+        Intent i =new Intent(ServiceProviderFunctionality.this, ServiceProviderAvailability.class);
+        startActivity(i);
+
     }
 }

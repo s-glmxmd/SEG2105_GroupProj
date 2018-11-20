@@ -172,6 +172,7 @@
                         android:id="@+id/btnEditAvailabilities"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="setAvailibilityButton"
                         android:text="Edit Availabilities" />
                 </LinearLayout>
 
