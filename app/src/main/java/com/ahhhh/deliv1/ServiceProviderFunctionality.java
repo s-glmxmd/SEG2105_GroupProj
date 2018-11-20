@@ -12,19 +12,14 @@ import android.widget.TextView;
 public class ServiceProviderFunctionality extends AppCompatActivity {
     private String username;
 
-    private String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_provider_functionality);
-<<<<<<< HEAD
 
         Bundle passedVals = getIntent().getExtras();
         username = passedVals.getString("username");
-=======
-        Bundle passedVals = getIntent().getExtras();
-        username=passedVals.getString("username");
->>>>>>> master
+
         //fill profile fields on create
         ServiceProvider tempSP=new ServiceProvider("test","test","test","test");
         //FEMALE ** SET tempSP EQUAL TO THE SERVICE PROVIDER ASSOCIATED WITH USERNAME (not the test instance i've made above)
@@ -59,8 +54,7 @@ public class ServiceProviderFunctionality extends AppCompatActivity {
         Intent i = new Intent(ServiceProviderFunctionality.this, ServiceSelector.class);
         i.putExtra("username", username);
         startActivity(i);
-<<<<<<< HEAD
-=======
+
     }
 
     public void btnCreateProfileClick(View view){
@@ -70,6 +64,6 @@ public class ServiceProviderFunctionality extends AppCompatActivity {
     }
     public void btnEditProfileClick(View view){
         btnCreateProfileClick(view);
->>>>>>> master
+
     }
 }
