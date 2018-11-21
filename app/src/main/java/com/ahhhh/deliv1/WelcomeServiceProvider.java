@@ -19,7 +19,14 @@ public class WelcomeServiceProvider extends AppCompatActivity {
     }
 
     public void btnProceedClick(View view){
-        Intent i = new Intent(WelcomeServiceProvider.this, ServiceProviderFunctionality.class);
+        MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+        Intent i;
+        if (myDBHelper.infoProvided(username)) {
+            i = new Intent(WelcomeServiceProvider.this, DisplayServiceProviderProfile.class);
+        }
+        else {
+            i = new Intent(WelcomeServiceProvider.this, ServiceProviderFunctionality.class);
+        }
         i.putExtra("username", username);
         startActivity(i);
     }

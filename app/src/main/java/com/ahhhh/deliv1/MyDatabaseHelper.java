@@ -3,7 +3,7 @@ package com.ahhhh.deliv1;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
-import android.content. ContentValues;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.DropBoxManager;
 import android.os.strictmode.SqliteObjectLeakedViolation;
@@ -21,6 +21,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
@@ -448,8 +450,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayList<Service> getServices(String username) {
         ArrayList<Service> services = new ArrayList<Service>();
+        ArrayList<Service> tmp;
+
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -462,7 +467,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             byte[] value = cursor.getBlob(0);
             if (value != null) {
-                services.add(SerializationUtils.<Service>deserialize(value));
+                try {
+                    ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(value));
+                    try {
+                        services = (ArrayList<Service>) ois.readObject();
+                    } catch (ClassNotFoundException e) {
+                        return null;
+                    }
+                } catch (IOException e) {
+                    return null;
+                }
             }
         }
         cursor.close();
@@ -508,8 +522,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public boolean removeService(String username, Service service) {
         ArrayList<Service> services = this.getServices(username);
-        boolean val;
-        val = services.remove(service);
+        boolean val = false;
+        for (int i = 0; i < services.size(); i ++){
+            if (services.get(i).getServiceName().equals(service.getServiceName()) && services.get(i).getHourlyRate() == service.getHourlyRate() && !val){
+                services.remove(i);
+                val = true;
+            }
+        }
+
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

@@ -13,20 +13,16 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     @Test
-    public void service_getters_and_setters() {
-        Service s1 = new Service("Plumbing" , 15.0);
-        String actual = s1.getServiceName();
-        String expected = "Plumbing";
-        assertEquals("Actual vs expected", actual, expected );
+    public void service_provider_test1() {
+        ServiceProvider s1 = new ServiceProvider("user", "pass", "John", "doe");
+        s1.setCompanyName("Company");
+        assertEquals("Actual vs expected", "Company", s1.getCompanyName());
+    }
 
-        Service s2 = new Service("Woodworking", 20.0);
-
-        assertEquals("Comparing hourly rates", s1.getHourlyRate(), 15.0, 0.001);
-
-
-        assertEquals("Testing field validation", s1.validateEnteredInfo(), null);
-        Service s3 = new Service("blah", "not a number");
-        assertEquals("Testing default value for instance variable", s3.getServiceName(), "blah");
-        assertEquals("Testing default value of hourlyRate", s3.getHourlyRate(), -1.0, 0.001);
+    @Test
+    public void service_provider_test2() {
+        ServiceProvider s1 = new ServiceProvider("user", "pass", "John", "doe");
+        s1.setLicenced(true);
+        assertEquals("Actual vs expected", true, s1.isLicenced());
     }
 }

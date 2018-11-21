@@ -15,167 +15,60 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/title0"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Username:"
-                android:textColor="@android:color/background_dark" />
-
-            <TextView
-                android:id="@+id/txtUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/title1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="First Name:"
-                android:textColor="@android:color/background_dark" />
-
-            <TextView
-                android:id="@+id/txtFirstName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/title2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Last Name"
-                android:textColor="@android:color/background_dark" />
-
-            <TextView
-                android:id="@+id/txtLastName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
-
-            <Button
-                android:id="@+id/btnCreateProfile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Create Profile" />
-
             <LinearLayout
-                android:id="@+id/layoutProfileInfo"
+                android:id="@+id/displayProfileInfo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/title3"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/title0"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Address:"
+                    android:text="Username:"
                     android:textColor="@android:color/background_dark" />
 
                 <TextView
-                    android:id="@+id/txtStreetAddress"
+                    android:id="@+id/txtUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView" />
 
                 <TextView
-                    android:id="@+id/txtProvince"
+                    android:id="@+id/title1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
-
-                <TextView
-                    android:id="@+id/txtCountry"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-
-                <TextView
-                    android:id="@+id/txtPostal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-
-                <TextView
-                    android:id="@+id/title4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Phone Number:"
+                    android:text="First Name:"
                     android:textColor="@android:color/background_dark" />
 
                 <TextView
-                    android:id="@+id/txtPhoneNumber"
+                    android:id="@+id/txtFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView" />
 
                 <TextView
-                    android:id="@+id/title5"
+                    android:id="@+id/title2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name of Company"
+                    android:text="Last Name"
                     android:textColor="@android:color/background_dark" />
 
                 <TextView
-                    android:id="@+id/txtCompany"
+                    android:id="@+id/txtLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView" />
 
-                <TextView
-                    android:id="@+id/title6"
+                <Button
+                    android:id="@+id/btnCreateProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Description:"
-                    android:textColor="@android:color/background_dark" />
-
-                <TextView
-                    android:id="@+id/txtDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-
-                <TextView
-                    android:id="@+id/title7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Licensed:"
-                    android:textColor="@android:color/background_dark" />
-
-                <TextView
-                    android:id="@+id/txtLisenced"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/btnAddOrRemoveServices"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="btnAddOrRemoveServiceClick"
-                        android:text="Add or Remove Services" />
-
-                    <Button
-                        android:id="@+id/btnEditProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="btnEditProfileClick"
-                        android:text="Edit Profile" />
-
-                    <Button
-                        android:id="@+id/btnEditAvailabilities"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Edit Availabilities" />
-                </LinearLayout>
-
+                    android:onClick="btnCreateProfileClick"
+                    android:text="Create Profile" />
             </LinearLayout>
+
+
 
         </LinearLayout>
     </ScrollView>

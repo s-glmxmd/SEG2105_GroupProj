@@ -17,7 +17,7 @@ public class CustomAdapter extends ArrayAdapter {
     private final Context context;
     private final ArrayList<Service> myServices;
 
-    public CustomAdapter(Context context, ArrayList myServices){
+    public CustomAdapter(Context context, ArrayList<Service> myServices){
         super(context, R.layout.service_item_layout, myServices);
         this.context = context;
         this.myServices = myServices;
@@ -31,8 +31,9 @@ public class CustomAdapter extends ArrayAdapter {
         TextView serviceName = (TextView) rowView.findViewById(R.id.textView9);
         TextView serviceRate = (TextView) rowView.findViewById(R.id.textView10);
 
-        serviceName.setText(myServices.get(position).getServiceName());
-        serviceRate.setText(Double.toString(myServices.get(position).getHourlyRate()));
+        Service a = myServices.get(position);
+        serviceName.setText(a.getServiceName());
+        serviceRate.setText(String.valueOf(myServices.get(position).getHourlyRate()));
         return rowView;
 
     }
