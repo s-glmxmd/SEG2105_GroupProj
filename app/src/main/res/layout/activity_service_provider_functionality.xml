@@ -68,8 +68,6 @@
                     android:text="Create Profile" />
             </LinearLayout>
 
-<<<<<<< HEAD
-=======
                     <Button
                         android:id="@+id/btnEditAvailabilities"
                         android:layout_width="match_parent"
@@ -77,7 +75,6 @@
                         android:onClick="setAvailibilityButton"
                         android:text="Edit Availabilities" />
                 </LinearLayout>
->>>>>>> master
 
 
         </LinearLayout>
