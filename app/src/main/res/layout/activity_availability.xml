@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ServiceProviderAvailability">
+
+    <LinearLayout
+        android:id="@+id/Sunday"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SatStartEnd">
+
+        <CheckBox
+            android:id="@+id/SunCheck"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sunday" />
+
+        <EditText
+            android:id="@+id/SunHRStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/SunMINStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-59"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/SunHREnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/SunMINEnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-59"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/SunStartEnd"
+        android:layout_width="264dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginLeft="120dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Sunday">
+
+        <TextView
+            android:id="@+id/StartTimeSun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="StartTime(HRS:MINS)"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/EndTimeSun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EndTime(HRS:MINS)"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Saturday"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FriStartEnd">
+
+        <CheckBox
+            android:id="@+id/SatCheck"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Saturday" />
+
+        <EditText
+            android:id="@+id/SatHRStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/SatMINStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-59"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/SatHREnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/SatMINEnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-59"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/SatStartEnd"
+        android:layout_width="264dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginLeft="120dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Saturday">
+
+        <TextView
+            android:id="@+id/StartTimeSat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="StartTime(HRS:MINS)"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/EndTimeSat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EndTime(HRS:MINS)"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Friday"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ThursStartEnd">
+
+        <CheckBox
+            android:id="@+id/FridayCheck"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Friday" />
+
+        <EditText
+            android:id="@+id/FridayHRStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/FridayMINStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-59"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/FridayHREnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/FridayMINEnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-59"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/FriStartEnd"
+        android:layout_width="264dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginLeft="120dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Friday">
+
+        <TextView
+            android:id="@+id/StartTimeFriday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="StartTime(HRS:MINS)"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/EndTimeFriday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EndTime(HRS:MINS)"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Thursday"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/WedsStartEnd">
+
+        <CheckBox
+            android:id="@+id/ThursdayCheck"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thursday" />
+
+        <EditText
+            android:id="@+id/ThursHRStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/ThursMINStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-59"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/ThursHREnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/ThursMINEnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-59"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ThursStartEnd"
+        android:layout_width="264dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginLeft="120dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Thursday">
+
+        <TextView
+            android:id="@+id/StartTimeThurs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="StartTime(HRS:MINS)"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/EndTimeThurs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EndTime(HRS:MINS)"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Wednesday"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TuesdayStartEnd">
+
+        <CheckBox
+            android:id="@+id/WednesdayCheck"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Wednesday" />
+
+        <EditText
+            android:id="@+id/WedsHRStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/WedsMINStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-59"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/WedsHREnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/WedsMINEnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-59"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/WedsStartEnd"
+        android:layout_width="264dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginLeft="120dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Wednesday">
+
+        <TextView
+            android:id="@+id/StartTimeWeds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="StartTime(HRS:MINS)"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/EndTimeWeds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EndTime(HRS:MINS)"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Submit Availability Schedule"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="btnSubmitAvailability"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/MondayStartEnd"
+        android:layout_width="264dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginLeft="120dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Monday">
+
+        <TextView
+            android:id="@+id/StartTimeMon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="StartTime(HRS:MINS)"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/EndTimeMon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EndTime(HRS:MINS)"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Monday"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <CheckBox
+            android:id="@+id/MondayCheck"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Monday" />
+
+        <EditText
+            android:id="@+id/MondayHRStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/MondayMINStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="00-59"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/MondayHREnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/MondayMINEnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="00-59"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/TuesdayStartEnd"
+        android:layout_width="264dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginLeft="120dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Tuesday">
+
+        <TextView
+            android:id="@+id/StartTimeTues"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="StartTime(HRS:MINS)"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/EndTimeTues"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EndTime(HRS:MINS)"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Tuesday"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MondayStartEnd">
+
+        <CheckBox
+            android:id="@+id/TuesdayCheck"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tuesday" />
+
+        <EditText
+            android:id="@+id/TuesHRStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/TuesMINStart"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-59"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/TuesHREnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-12"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/TuesMINEnd"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="0-59"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/Prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Please select your available dates and times."
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
