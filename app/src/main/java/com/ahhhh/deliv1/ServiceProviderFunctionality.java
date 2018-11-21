@@ -35,6 +35,23 @@ public class ServiceProviderFunctionality extends AppCompatActivity {
         ((TextView)findViewById(R.id.txtFirstName)).setText(tempSP.getFirstName());
         ((TextView)findViewById(R.id.txtLastName)).setText(tempSP.getLastName());
 
+<<<<<<< HEAD
+=======
+        //if mandatory fields have not been filled, make the only option available create profile
+        if(tempSP.getWorkerAddress()==null){
+            ViewGroup profileInfo = findViewById(R.id.layoutProfileInfo);
+            profileInfo.removeAllViews();
+        } else{
+            Button createProfileBtn = findViewById(R.id.btnCreateProfile);
+            ((ViewGroup) (createProfileBtn).getParent()).removeView(createProfileBtn);
+        }
+        ((TextView)findViewById(R.id.txtStreetAddress)).setText(tempSP.getWorkerAddress().getStreetAddress());
+        ((TextView)findViewById(R.id.txtProvince)).setText(tempSP.getWorkerAddress().getProvince());
+        ((TextView)findViewById(R.id.txtCountry)).setText(tempSP.getWorkerAddress().getCountry());
+        ((TextView)findViewById(R.id.txtPostal)).setText(tempSP.getWorkerAddress().getPostalCode());
+        ((TextView)findViewById(R.id.txtCompany)).setText(tempSP.getCompanyName());
+        ((TextView)findViewById(R.id.txtPhoneNumber)).setText(tempSP.getPhoneNumber());
+>>>>>>> master
 
 
     }
@@ -45,6 +62,18 @@ public class ServiceProviderFunctionality extends AppCompatActivity {
         i.putExtra("username", username);
         startActivity(i);
     }
+<<<<<<< HEAD
 
 
+=======
+    public void btnEditProfileClick(View view){
+        btnCreateProfileClick(view);
+    }
+
+    public void setAvailibilityButton(View view){
+        Intent i =new Intent(ServiceProviderFunctionality.this, ServiceProviderAvailability.class);
+        startActivity(i);
+
+    }
+>>>>>>> master
 }
