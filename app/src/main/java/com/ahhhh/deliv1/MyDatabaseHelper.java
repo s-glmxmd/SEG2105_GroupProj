@@ -8,6 +8,16 @@ import android.database.Cursor;
 import android.os.DropBoxManager;
 import android.os.strictmode.SqliteObjectLeakedViolation;
 
+
+import org.apache.commons.lang3.SerializationUtils;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.sql.Blob;
 import java.util.ArrayList;
 
 
@@ -37,6 +47,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
 
+    public static final String SERVICE_PROVIDERS = "ServiceProvider";
+    public static final String C_PRIMARY_SERVICE_PROVIDER = "_id";
+    public static final String COLUMN_ADDRESS_NAME = "AddressName";
+    public static final String COLUMN_ADDRESS_COUNTRY = "Country";
+    public static final String COLUMN_ADDRESS_POSTAL = "PostalCode";
+    public static final String COLUMN_ADDRESS_PROVINCE = "Province";
+    public static final String COLUMN_LICENCE = "Licence";
+    public static final String COLUMN_COMPANY_NAME = "CompanyName";
+    public static final String COLUMN_AVAILABILITIES = "Availabilities";
+    public static final String COLUMN_SERVICES = "Services";
 
 
 
@@ -72,9 +92,25 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_SERVICE_INFO_TABLE);
 
+        String CREATE_SERVICE_PROVIDER_TABLE = "CREATE TABLE " +
+                SERVICE_PROVIDERS + "( " +
+                C_PRIMARY_SERVICE_PROVIDER + " INTEGER PRIMARY KEY, " +
+                COLUMN_USERNAME + " TEXT, " +
+                COLUMN_ADDRESS_NAME + " TEXT, " +
+                COLUMN_ADDRESS_PROVINCE + " TEXT, " +
+                COLUMN_ADDRESS_COUNTRY + " TEXT, " +
+                COLUMN_ADDRESS_POSTAL + " TEXT, " +
+                COLUMN_LICENCE + " INTEGER DEFAULT 0, " +
+                COLUMN_COMPANY_NAME + " TEXT, " +
+                COLUMN_AVAILABILITIES + " BLOB, " +
+                COLUMN_SERVICES + " BLOB, " +
+                " FOREIGN KEY(" + COLUMN_USERNAME + ")" +
+                " REFERENCES " + TABLE_NAME + "(" + COLUMN_PRIMARY_KEY_APP + ")" +
+                ")";
+
+        db.execSQL(CREATE_SERVICE_PROVIDER_TABLE);
 
     }
-
 
 
     @Override
@@ -270,7 +306,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_SERVICE_TITLE, serviceDescription.toLowerCase());
+        values.put(COLUMN_SERVICE_TITLE, serviceDescription);
         values.put(COLUMN_SERVICE_RATE, rateForService);
 
         db.insert(SERVICES_TABLE, null, values);
@@ -280,22 +316,30 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void removeService(String serviceDescription, double rateForService) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "SELECT * FROM " + SERVICES_TABLE +
-                " WHERE " + COLUMN_SERVICE_TITLE + " = \"" + serviceDescription.toLowerCase() + "\"";
+        String query = "SELECT " + COLUMN_SERVICE_RATE +  " FROM " + SERVICES_TABLE +
+                " WHERE " + COLUMN_SERVICE_TITLE + " = \"" + serviceDescription + "\"" +
+                " AND " + COLUMN_SERVICE_RATE + " = " + rateForService;
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
-            String serviceID = cursor.getString(0);
-            db.delete(SERVICES_TABLE, COLUMN_PRIMARY_KEY_SERVICE + " = " + serviceID , null);
-            cursor.close();
+            db.delete(SERVICES_TABLE, COLUMN_SERVICE_TITLE + " =? AND " + COLUMN_SERVICE_RATE + " = ?" , new String[]{serviceDescription, String.valueOf(rateForService)} );
         }
+        cursor.close();
         db.close();
 
     }
 
     public void updateServiceInfo(String oldServiceDesc, double oldRate, String newServiceDesc, double newRate) {
-        removeService(oldServiceDesc, oldRate);
-        addService(newServiceDesc, newRate);
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+
+        values.put(COLUMN_SERVICE_TITLE, newServiceDesc);
+        values.put(COLUMN_SERVICE_RATE, newRate);
+
+        db.update(SERVICES_TABLE, values, COLUMN_SERVICE_TITLE + " =? AND " + COLUMN_SERVICE_RATE + " = ?" , new String[]{oldServiceDesc, String.valueOf(oldRate)});
+
+        db.close();
     }
 
     public ArrayList<Service> getServices() {
@@ -318,6 +362,29 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         return services;
 
+    }
+
+    public ArrayList<Service> getServices(String username) {
+        ArrayList<Service> services = new ArrayList<Service>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + COLUMN_SERVICES + " FROM " + SERVICE_PROVIDERS +
+                " WHERE " + COLUMN_USERNAME
+                + " = \"" + username + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+
+
+        if (cursor.moveToFirst()) {
+            do {
+                byte[] value = cursor.getBlob(0);
+                services.add((Service)SerializationUtils.deserialize(value));
+            }while (cursor.moveToNext());
+        }
+
+        return services;
     }
 
 

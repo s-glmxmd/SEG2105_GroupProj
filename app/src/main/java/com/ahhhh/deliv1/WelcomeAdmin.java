@@ -7,17 +7,21 @@ import android.view.View;
 import android.widget.TextView;
 
 public class WelcomeAdmin extends AppCompatActivity {
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_admin);
         Bundle passedVals = getIntent().getExtras();
-        String firstName=passedVals.getString("firstName");
-        ((TextView)findViewById(R.id.textViewWelcome)).setText("Welcome "+firstName+". You are signed in as an Admin.");
+        username=passedVals.getString("username");
+        ((TextView)findViewById(R.id.textViewWelcome)).setText("Welcome "+username+". You are signed in as an Admin.");
     }
 
     public void btnProceedClick(View view){
-        startActivity(new Intent(WelcomeAdmin.this, AdminFunctionality.class));
+        Intent i = new Intent(WelcomeAdmin.this, ServiceInfoActivity.class);
+        i.putExtra("username", username);
+        startActivity(i);
+
     }
 }

@@ -54,9 +54,13 @@ public class LogIn extends AppCompatActivity {
 
                     //startActivity(new Intent(LogIn.this, WelcomeAdmin.class));
                 } else if(accountType.equals("Homeowner")){
-                    startActivity(new Intent(LogIn.this, WelcomeHomeowner.class));
+                    Intent i = new Intent(LogIn.this, WelcomeHomeowner.class);
+                    i.putExtra("username", username);
+                    startActivity(i);
                 } else if(accountType.equals("ServiceProvider")){
-                    startActivity(new Intent(LogIn.this, WelcomeServiceProvider.class));
+                    Intent i = new Intent(LogIn.this, WelcomeServiceProvider.class);
+                    i.putExtra("username", username);
+                    startActivity(i);
                 }
                 else {
                     Context context = getApplicationContext();

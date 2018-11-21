@@ -15,43 +15,41 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name you want to edit/delete" />
+            android:text="Name to edit/delete" />
 
         <EditText
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Old Name" />
+            android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rate you want to edit/delete" />
+            android:text="Rate to edit/delete" />
 
         <EditText
             android:id="@+id/hourlyRate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Old Rate" />
+            android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name you want to edit to (Ignore if deleting)" />
+            android:text="Name " />
 
         <EditText
             android:id="@+id/newText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="New Name" />
+            android:hint="New Name"
+            android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/textView12"
@@ -64,8 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="New Rate" />
+            android:hint="New Rate"
+            android:inputType="textPersonName" />
 
         <LinearLayout
             android:layout_width="match_parent"

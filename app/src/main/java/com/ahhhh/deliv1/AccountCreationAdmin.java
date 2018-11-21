@@ -37,7 +37,7 @@ public class AccountCreationAdmin extends AppCompatActivity {
             else {
                 myDBHelper.addUserAccount(firstName, lastName, username, password, 1);
                 Intent i = new Intent(AccountCreationAdmin.this, WelcomeAdmin.class);
-                i.putExtra("firstName", firstName);
+                i.putExtra("username", username);
                 startActivity(i);
             }
 
