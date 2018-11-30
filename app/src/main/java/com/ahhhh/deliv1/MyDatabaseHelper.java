@@ -3,7 +3,7 @@ package com.ahhhh.deliv1;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
-import android.content. ContentValues;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.DropBoxManager;
 import android.os.strictmode.SqliteObjectLeakedViolation;
@@ -13,12 +13,16 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
@@ -57,6 +61,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_COMPANY_NAME = "CompanyName";
     public static final String COLUMN_AVAILABILITIES = "Availabilities";
     public static final String COLUMN_SERVICES = "Services";
+    public static final String COLUMN_ADDITIONAL_INFO = "AdditionalInfo";
 
 
 
@@ -104,6 +109,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_COMPANY_NAME + " TEXT, " +
                 COLUMN_AVAILABILITIES + " BLOB, " +
                 COLUMN_SERVICES + " BLOB, " +
+                COLUMN_ADDITIONAL_INFO + " TEXT, "+
                 " FOREIGN KEY(" + COLUMN_USERNAME + ")" +
                 " REFERENCES " + TABLE_NAME + "(" + COLUMN_PRIMARY_KEY_APP + ")" +
                 ")";
@@ -117,6 +123,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + SERVICES_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + SERVICE_PROVIDERS);
         onCreate(db);
 
 
@@ -149,6 +156,123 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public String[] getName(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_FIRST_NAME + ", " + COLUMN_LAST_NAME +
+                " FROM " + TABLE_NAME + " WHERE " + COLUMN_USERNAME
+                + " = \"" + username + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+        String[] values = new String[2];
+        int i = 0;
+        if (cursor.moveToNext()) {
+            while (i < 2) {
+                values[i] = cursor.getString(i);
+                i ++;
+            }
+
+        }
+        cursor.close();
+        db.close();
+        return values;
+    }
+
+    public String[] getSPInfo(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String [] spInfo = new String[7];
+
+        String querySP = "SELECT " + COLUMN_COMPANY_NAME + ", " +
+                COLUMN_ADDRESS_NAME + ", " + COLUMN_ADDRESS_PROVINCE + ", " +
+                COLUMN_ADDRESS_COUNTRY + ", " + COLUMN_ADDRESS_POSTAL + ", " +
+                COLUMN_ADDITIONAL_INFO + " FROM " + SERVICE_PROVIDERS +
+                " WHERE " + COLUMN_USERNAME + " = \"" + username + "\"";
+
+        String queryLicence = "SELECT " + COLUMN_LICENCE + " FROM " + SERVICE_PROVIDERS +
+                " WHERE " + COLUMN_USERNAME + " = \"" + username + "\"";
+
+        String queryPhone = "SELECT " + COLUMN_PHONE_NUMBER + " FROM " + TABLE_NAME +
+                " WHERE " + COLUMN_USERNAME + " = \"" + username + "\"";
+
+        Cursor cursorSP = db.rawQuery(querySP, null);
+        int i = 0;
+        if (cursorSP.moveToFirst()){
+            do {
+                spInfo[i] = cursorSP.getString(i);
+                i ++;
+            }while ( i < 5);
+
+        }
+        cursorSP.close();
+
+        Cursor cursorLic = db.rawQuery(queryLicence, null);
+        if (cursorLic.moveToNext()) {
+            if ( cursorLic.getInt(0) == 0) {
+                spInfo[5] = "no";
+            }
+            else {
+                spInfo[5] = "yes";
+            }
+        }
+        cursorLic.close();
+
+        Cursor cursorPhone = db.rawQuery(queryPhone, null);
+        if (cursorPhone.moveToNext()) {
+            spInfo[6] = cursorPhone.getString(0);
+        }
+        cursorPhone.close();
+
+        db.close();
+        return spInfo;
+
+    }
+
+
+    public void addSPInfo(String username, String company, String address, String province, String country, String postal, String desc, boolean isLicenced, String phoneNumber) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues valuesAccount = new ContentValues();
+        ContentValues valuesSP = new ContentValues();
+
+
+        //update account info with phone number to account info
+        valuesAccount.put(COLUMN_PHONE_NUMBER, phoneNumber);
+        db.update(TABLE_NAME, valuesAccount, COLUMN_USERNAME + " =?", new String[]{username});
+        db.close();
+
+
+        db = this.getWritableDatabase();
+        //adding to service provider
+        valuesSP.put(COLUMN_USERNAME, username);
+        valuesSP.put(COLUMN_ADDRESS_NAME, address);
+        valuesSP.put(COLUMN_ADDRESS_PROVINCE, province);
+        valuesSP.put(COLUMN_ADDRESS_COUNTRY, country);
+        valuesSP.put(COLUMN_ADDRESS_POSTAL, postal);
+        valuesSP.put(COLUMN_ADDITIONAL_INFO, desc);
+        valuesSP.put(COLUMN_COMPANY_NAME, company);
+        if (isLicenced) {
+            valuesSP.put(COLUMN_LICENCE, 1);
+        }
+        else {
+            valuesSP.put(COLUMN_LICENCE, 0);
+        }
+        db.insert(SERVICE_PROVIDERS, null, valuesSP);
+
+        db.close();
+
+    }
+
+    public boolean infoProvided(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        boolean result;
+
+        String query = "SELECT " + COLUMN_COMPANY_NAME + " FROM " +
+                SERVICE_PROVIDERS + " WHERE " + COLUMN_USERNAME + " = \"" + username + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+        result = cursor.moveToNext();
+
+        cursor.close();
+        db.close();
+        return result;
+
+    }
 
     /**
      * Method to search through db in order to find password associated to account
@@ -231,44 +355,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    /**
-     * Currently only have one table for all the record from the application
-     *
-     * N.B.:
-     *      Will need to create a ReferenceCodes table to keep track of various codes throughout
-     *      db
-     */
-    /**
-     public void addReferenceCode(int code, int codeType, String description) {
-     SQLiteDatabase db = this.getWritableDatabase();
-     ContentValues values = new ContentValues();
-
-     values.put(DatabaseReferences.ReferenceCodes.CODE, code);
-     values.put(DatabaseReferences.ReferenceCodes.CODE_TYPE, codeType);
-     values.put(DatabaseReferences.ReferenceCodes.DESCRIPTION, description);
-
-     db.insert(DatabaseReferences.ReferenceCodes.TABLE_NAME, null, values);
-     db.close();
-     }
-
-     */
-    /**
-     public void deleteUserAccount(int id) {
-     SQLiteDatabase db = this.getWritableDatabase();
-
-     String query = "Select * FROM " + TABLE_NAME + " WHERE " +
-     COLUMN_PRIMARY_KEY+ " = \"" + id + "\"";
-     Cursor cursor = db.rawQuery(query, null);
-
-     if (cursor.moveToFirst()) {
-     String idStr = cursor.getString(0);
-     db.delete(TABLE_NAME, COLUMN_PRIMARY_KEY+ " = " + idStr, null);
-     cursor.close();
-
-     }
-     db.close();
-     }
-     */
 
     /**
      * Inserting user account information in the database
@@ -364,8 +450,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayList<Service> getServices(String username) {
         ArrayList<Service> services = new ArrayList<Service>();
+        ArrayList<Service> tmp;
+
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -375,18 +464,86 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(query, null);
 
-
-
         if (cursor.moveToFirst()) {
-            do {
-                byte[] value = cursor.getBlob(0);
-                services.add((Service)SerializationUtils.deserialize(value));
-            }while (cursor.moveToNext());
+            byte[] value = cursor.getBlob(0);
+            if (value != null) {
+                try {
+                    ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(value));
+                    try {
+                        services = (ArrayList<Service>) ois.readObject();
+                    } catch (ClassNotFoundException e) {
+                        return null;
+                    }
+                } catch (IOException e) {
+                    return null;
+                }
+            }
         }
-
+        cursor.close();
+        db.close();
         return services;
     }
 
+
+    public boolean addService(String username, Service service, Context c) {
+        ArrayList<Service> services = this.getServices(username);
+        services.add(service);
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        try{
+
+            // Serialize data object to a file
+            File f = new File( c.getFilesDir(), "MyServices.ser" );
+
+            f.createNewFile();
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(f, true));
+
+            out.writeObject(services);
+            out.close();
+
+            // Serialize data object to a byte array
+            ByteArrayOutputStream bos = new ByteArrayOutputStream() ;
+            out = new ObjectOutputStream(bos) ;
+            out.writeObject(services);
+            out.close();
+
+            // Get the bytes of the serialized object
+            byte[] data = bos.toByteArray();
+            values.put(COLUMN_SERVICES, data);
+
+            db.update(SERVICE_PROVIDERS, values, COLUMN_USERNAME + "=?", new String[]{username});
+        } catch (IOException e) {
+            return false;
+        }
+
+        db.close();
+        return true;
+    }
+
+    public boolean removeService(String username, Service service) {
+        ArrayList<Service> services = this.getServices(username);
+        boolean val = false;
+        for (int i = 0; i < services.size(); i ++){
+            if (services.get(i).getServiceName().equals(service.getServiceName()) && services.get(i).getHourlyRate() == service.getHourlyRate() && !val){
+                services.remove(i);
+                val = true;
+            }
+        }
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        byte[] data = SerializationUtils.serialize(services);
+
+        values.put(COLUMN_SERVICES, data);
+
+        db.update(SERVICE_PROVIDERS, values, COLUMN_USERNAME + "=?", new String[]{username});
+
+        db.close();
+
+        return val;
+    }
 
 
 }

@@ -34,7 +34,12 @@ public class CreateSpProfile extends AppCompatActivity {
         description=((EditText) findViewById(R.id.edtxtDescription)).getText().toString();
         licensed=((CheckBox) findViewById(R.id.chkLicense)).isChecked();
 
-        ServiceProvider tempSP=new ServiceProvider("test","test","test","test");
+        MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+
+        String [] name = myDBHelper.getName(username);
+        String password = myDBHelper.findPassword(username);
+
+        ServiceProvider tempSP = new ServiceProvider(username, password, name[0], name[1]);
         tempSP.setCompanyName(company);
         tempSP.setPhoneNumber(phone);
         tempSP.setWorkerAddress(new ProfileAddress(streetAddress,province,country,postal));
@@ -44,7 +49,9 @@ public class CreateSpProfile extends AppCompatActivity {
             //*** FEMALE put the following values in to the database
             //company, phone, streetAddress, province, country, postal, description, licensed
 
-            Intent i = new Intent(CreateSpProfile.this, ServiceProviderFunctionality.class);
+            myDBHelper.addSPInfo(username, company, streetAddress, province, country, postal, description, licensed, phone);
+
+            Intent i = new Intent(CreateSpProfile.this, DisplayServiceProviderProfile.class);
             i.putExtra("username", username);
             startActivity(i);
         } else {

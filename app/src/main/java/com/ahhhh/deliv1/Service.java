@@ -3,9 +3,10 @@ package com.ahhhh.deliv1;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import java.io.Serializable;
 import java.util.regex.Pattern;
 
-public class Service {
+public class Service implements Serializable {
     String title;
     double hourlyRate;
 

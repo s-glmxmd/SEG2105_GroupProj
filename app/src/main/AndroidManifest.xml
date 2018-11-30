@@ -29,7 +29,10 @@
         <activity android:name=".AddOrDeleteService" />
         <activity android:name=".ServiceProviderFunctionality" />
         <activity android:name=".ServiceSelector" />
-        <activity android:name=".CreateSpProfile"></activity>
+        <activity android:name=".CreateSpProfile" />
+        <activity android:name=".DisplayServiceProviderProfile" />
+        <activity android:name=".AddServiceToProfile" />
+        <activity android:name=".DeleteServiceFromProfile"></activity>
     </application>
 
 </manifest>
