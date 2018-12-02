@@ -19,7 +19,7 @@
             android:id="@+id/infoTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Please provide your service provider information" />
+            android:text="Please provide your home owner information" />
 
         <TextView
             android:id="@+id/firstNameTextView"
