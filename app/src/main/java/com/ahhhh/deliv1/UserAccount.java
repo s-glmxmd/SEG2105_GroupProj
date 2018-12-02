@@ -1,8 +1,9 @@
 package com.ahhhh.deliv1;
 
+import java.io.Serializable;
 import java.util.regex.Pattern;
 
-public class UserAccount {
+public class UserAccount implements Serializable {
     private String username, password, firstName, lastName;
 
     public UserAccount(String username, String password, String firstName, String lastName){

@@ -1,14 +1,20 @@
 package com.ahhhh.deliv1;
 
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.regex.Pattern;
 
-public class ServiceProvider extends UserAccount {
+public class ServiceProvider extends UserAccount implements Serializable {
 
     private ArrayList<Service> services;
-    private ArrayList<Timestamp> availabilities;
+    private ArrayList<Availability> availabilities;
+    private ArrayList<Booking> bookings;
 
     private String companyName;
     private ProfileAddress workerAddress;
@@ -20,7 +26,20 @@ public class ServiceProvider extends UserAccount {
     public ServiceProvider(String username, String password, String firstName, String lastName){
         super(username,password,firstName,lastName);
         services = new ArrayList<Service>();
-        availabilities = new ArrayList<Timestamp>();
+        availabilities = new ArrayList<Availability>();
+         bookings=new ArrayList<Booking>();
+
+    }
+    public ServiceProvider(String username, String password, String firstName, String lastName, ArrayList<Booking> bookings){
+        super(username,password,firstName,lastName);
+        services = new ArrayList<Service>();
+        availabilities = new ArrayList<Availability>();
+        Collections.sort(availabilities);
+        this.bookings=bookings;
+    }
+
+    public void addBooking(Booking appointment){
+        bookings.add(appointment);
     }
 
     public void setWorkerAddress(ProfileAddress newAddress){
@@ -41,13 +60,11 @@ public class ServiceProvider extends UserAccount {
         services.addAll(servicesToAdd);
     }
 
-    public void addAvailability(Timestamp time) {
-        availabilities.add(time);
+    public void addAvailability(Availability availability) {
+        availabilities.add(availability);
+        Collections.sort(availabilities);
     }
 
-    public void addAvailability(ArrayList<Timestamp> time) {
-        availabilities.addAll(time);
-    }
 
     public void setLicenced(boolean val) {
         isLicenced = val;
@@ -67,6 +84,10 @@ public class ServiceProvider extends UserAccount {
         return companyName;
     }
 
+    public ArrayList<Service> getServices() {
+        return services;
+    }
+
     public String validateProfile(){
         String error = workerAddress.validate();
 
@@ -79,11 +100,43 @@ public class ServiceProvider extends UserAccount {
 
         return error;
     }
+    public double calculateAverageServiceRating(Service service){
 
+        double avg=0.0;
+        double numRatedBookings=0.0;
+        for(Booking b:bookings){
+            if((b.getHomeownerRating()!=null)&&b.getService().getServiceName().equals(service.getServiceName())){
+                numRatedBookings+=1.0;
+                avg+=b.getHomeownerRating().getNumericRating();
+            }
+        }
+        if(numRatedBookings==0.0){
+            return -1;
+        }
+        avg=avg/numRatedBookings;
+        return avg;
+    }
+    public Availability getNextAvailability(){
+        for(Availability a:availabilities){
+            //if the first date in availilities hasn't passed, it's the next availability
+            //otherwise search through availabilities until one is found that hasn't passed
+            if(!a.hasPassed()){
+                return a;
+            }
+        }
+        //if all the dates have passed, return the first date in availabilities (the first availability of the next week)
+        if (availabilities.size()!=0) {
+            return availabilities.get(0);
+        } else{
+            return null;
+        }
+    }
 
+    public ArrayList<Availability> getAvailabilities() {
+        return availabilities;
+    }
 
-
-
-
-
+    public String getDescription() {
+        return description;
+    }
 }

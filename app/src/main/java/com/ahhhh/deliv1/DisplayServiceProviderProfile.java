@@ -53,6 +53,9 @@ public class DisplayServiceProviderProfile extends AppCompatActivity {
 
     public void btnEditAvailabilities(View view) {
         //waiting for push from adam
+        Intent i = new Intent(DisplayServiceProviderProfile.this, ServiceProviderAvailability.class);
+        i.putExtra("username", username);
+        startActivity(i);
     }
 
 }

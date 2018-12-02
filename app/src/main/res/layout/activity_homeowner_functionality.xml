@@ -4,26 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WelcomeHomeowner">
+    tools:context=".HomeownerFunctionality">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewWelcome"
+        <Button
+            android:id="@+id/btnServiceSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="30sp" />
+            android:onClick="btnServiceSearch"
+            android:text="Search for Services" />
 
         <Button
-            android:id="@+id/btnProceed2"
+            android:id="@+id/btnViewBookedAndRate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="btnProceedClick"
-            android:text="Proceed -->" />
-
+            android:onClick="btnViewBookedAndRate"
+            android:text="View and Rate Booked Services" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
