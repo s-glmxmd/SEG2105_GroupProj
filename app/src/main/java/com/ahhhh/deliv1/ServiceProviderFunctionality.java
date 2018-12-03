@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 public class ServiceProviderFunctionality extends AppCompatActivity {
     private String username;
+    private String lastname;
     public ServiceProvider tempSP;
 
     @Override
@@ -25,6 +26,7 @@ public class ServiceProviderFunctionality extends AppCompatActivity {
 
         Bundle passedVals = getIntent().getExtras();
         username = passedVals.getString("username");
+        lastname = passedVals.getString("lastname");
 
         String [] name = myDBHelper.getName(username);
         String password = myDBHelper.findPassword(username);
@@ -34,8 +36,8 @@ public class ServiceProviderFunctionality extends AppCompatActivity {
 
 
         ((TextView)findViewById(R.id.txtUsername)).setText(tempSP.getUsername());
-        ((TextView)findViewById(R.id.txtFirstName)).setText(tempSP.getFirstName());
-        ((TextView)findViewById(R.id.txtLastName)).setText(tempSP.getLastName());
+        ((TextView)findViewById(R.id.txtFirstName)).setText(username);
+        ((TextView)findViewById(R.id.txtLastName)).setText(lastname);
 
         Context context = getApplicationContext();
         CharSequence message = "Please complete your profile information!";

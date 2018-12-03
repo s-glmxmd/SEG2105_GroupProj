@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 public class WelcomeServiceProvider extends AppCompatActivity {
     private String username;
+    private String lastname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +16,7 @@ public class WelcomeServiceProvider extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_service_provider);
         Bundle passedVals = getIntent().getExtras();
         username=passedVals.getString("username");
+        lastname = passedVals.getString("lastname");
         ((TextView)findViewById(R.id.textViewWelcome)).setText("Welcome "+username+". You are signed in as a Service Provider.");
     }
 
@@ -28,6 +30,7 @@ public class WelcomeServiceProvider extends AppCompatActivity {
             i = new Intent(WelcomeServiceProvider.this, ServiceProviderFunctionality.class);
         }
         i.putExtra("username", username);
+        i.putExtra("lastname", lastname);
         startActivity(i);
     }
 }

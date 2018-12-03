@@ -34,6 +34,7 @@ public class AccountCreationServiceProvider extends AppCompatActivity {
                 myDBHelper.addUserAccount(firstName, lastName, username, password, 3);
                 Intent i =new Intent(AccountCreationServiceProvider.this, WelcomeServiceProvider.class);
                 i.putExtra("username", firstName);
+                i.putExtra("lastname", lastName);
                 startActivity(i);
             }
 
