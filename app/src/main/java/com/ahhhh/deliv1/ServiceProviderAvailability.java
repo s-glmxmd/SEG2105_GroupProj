@@ -9,15 +9,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 
 public class ServiceProviderAvailability extends AppCompatActivity {
     private CheckBox Mon,Tues,Weds,Thurs,Fri,Sat,Sun;
+    private String username;
     int checkCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_availability);
+        Bundle passedVals = getIntent().getExtras();
+        username = passedVals.getString("username");
     }
     public void btnSubmitAvailability(View view){
         try {
