@@ -23,8 +23,8 @@ public class HomeownerViewBookedAndRate extends AppCompatActivity {
         //the following are for test purposes, delete them after and populate the list with the actual instances
 
         final ArrayList<Booking> bookings = new ArrayList<Booking>();
-        bookings.add(new Booking("Monday", new Service("sniffin", 25)));
-        bookings.add(new Booking("Tuesday", new Service("sniffin some more", 25)));
+        bookings.add(new Booking("Monday", new Service("Gardening", 25)));
+        //bookings.add(new Booking("Tuesday", new Service("sniffin some more", 25)));
 
         if (bookings.size() != 0) {
             ListView listView = findViewById(R.id.listViewBookings);

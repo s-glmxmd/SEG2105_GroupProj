@@ -484,6 +484,72 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return services;
     }
+    public ArrayList<Availability> getAvailabilities(String username) {
+        ArrayList<Availability> Availabilities = new ArrayList<>();
+        ArrayList<Availability> tmp;
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + COLUMN_AVAILABILITIES + " FROM " + SERVICE_PROVIDERS +
+                " WHERE " + COLUMN_USERNAME
+                + " = \"" + username + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            byte[] value = cursor.getBlob(0);
+            if (value != null) {
+                try {
+                    ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(value));
+                    try {
+                        Availabilities = (ArrayList<Availability>) ois.readObject();
+                    } catch (ClassNotFoundException e) {
+                        return null;
+                    }
+                } catch (IOException e) {
+                    return null;
+                }
+            }
+        }
+        cursor.close();
+        db.close();
+        return Availabilities;
+    }
+    public boolean addAvailbility(String username, Availability availability, Context c) {
+        ArrayList<Availability> availabilities = this.getAvailabilities(username);
+        availabilities.add(availability);
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        try{
+
+            // Serialize data object to a file
+            File f = new File( c.getFilesDir(), "MyServices.ser" );
+
+            f.createNewFile();
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(f, true));
+
+            out.writeObject(availabilities);
+            out.close();
+
+            // Serialize data object to a byte array
+            ByteArrayOutputStream bos = new ByteArrayOutputStream() ;
+            out = new ObjectOutputStream(bos) ;
+            out.writeObject(availabilities);
+            out.close();
+
+            // Get the bytes of the serialized object
+            byte[] data = bos.toByteArray();
+            values.put(COLUMN_AVAILABILITIES, data);
+
+            db.update(SERVICE_PROVIDERS, values, COLUMN_USERNAME + "=?", new String[]{username});
+        } catch (IOException e) {
+            return false;
+        }
+
+        db.close();
+        return true;
+    }
 
 
     public boolean addService(String username, Service service, Context c) {

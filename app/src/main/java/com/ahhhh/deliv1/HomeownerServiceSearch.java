@@ -43,22 +43,22 @@ public class HomeownerServiceSearch extends AppCompatActivity {
         //Here i've done 2 test service providers,remove this when DB is finished
         ArrayList<Service> testServices = new ArrayList<Service>();
         testServices.add(new Service("gardening", "2.0"));
-        testServices.add(new Service("snorting coke", "3.0"));
+        //testServices.add(new Service("snorting coke", "3.0"));
 
         //Female, note that i've made availability objects comparable to sort service providers by time
         Availability sp1Avail = new Availability("Tuesday", 8, 12, 12, 8);
-        Availability sp2Avail = new Availability("Tuesday", 8, 15, 12, 8);
+        //Availability sp2Avail = new Availability("Tuesday", 8, 15, 12, 8);
 
         ServiceProvider sp1 = new ServiceProvider("uname1", "pass1", "first1", "last1");
-        ServiceProvider sp2 = new ServiceProvider("uname2", "pass2", "first2", "last2");
+        //ServiceProvider sp2 = new ServiceProvider("uname2", "pass2", "first2", "last2");
 
         sp1.addServices(testServices);
-        sp2.addServices(testServices);
+        //sp2.addServices(testServices);
         sp1.addAvailability(sp1Avail);
-        sp2.addAvailability(sp2Avail);
+        //sp2.addAvailability(sp2Avail);
 
         SPs.add(sp1);
-        SPs.add(sp2);
+        //SPs.add(sp2);
 
         //This needs to be populated based on the list of SPs
 

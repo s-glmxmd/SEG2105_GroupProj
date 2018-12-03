@@ -9,6 +9,7 @@ import android.widget.TextView;
 public class DisplayServiceProviderProfile extends AppCompatActivity {
 
     private String username;
+    private ServiceProvider sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

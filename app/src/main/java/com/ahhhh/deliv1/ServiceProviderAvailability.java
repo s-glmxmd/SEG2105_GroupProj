@@ -1,5 +1,6 @@
 package com.ahhhh.deliv1;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,9 @@ import java.util.ArrayList;
 public class ServiceProviderAvailability extends AppCompatActivity {
     private CheckBox Mon,Tues,Weds,Thurs,Fri,Sat,Sun;
     private String username;
+    final MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+    //final ArrayList<Service> servicesAvailable = myDBHelper.getServices();
+    Context c;
     int checkCount;
 
     @Override
@@ -22,6 +26,11 @@ public class ServiceProviderAvailability extends AppCompatActivity {
         setContentView(R.layout.activity_availability);
         Bundle passedVals = getIntent().getExtras();
         username = passedVals.getString("username");
+        c = this.getApplicationContext();
+        /*final MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+        final ArrayList<Service> servicesAvailable = myDBHelper.getServices();
+        final MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+        final ArrayList<Service> itemsList = new ArrayList<Service>(myDBHelper.getS);*/
     }
     public void btnSubmitAvailability(View view){
         try {
@@ -38,6 +47,7 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int MonEndHR = Integer.parseInt(((EditText) findViewById(R.id.MondayHREnd)).getText().toString());
                 int MonEndMIN = Integer.parseInt(((EditText) findViewById(R.id.MondayMINEnd)).getText().toString());
                 Availability MondayAvailability = new Availability("Monday", MonStartHR, MonStartMIN, MonEndHR, MonEndMIN);
+                myDBHelper.addAvailbility(username,MondayAvailability,c);
                 checkCount++;
             }
             if (Tues.isChecked()) {
@@ -46,6 +56,7 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int TuesEndHR = Integer.parseInt(((EditText) findViewById(R.id.TuesHREnd)).getText().toString());
                 int TuesEndMIN = Integer.parseInt(((EditText) findViewById(R.id.TuesMINEnd)).getText().toString());
                 Availability TuesdayAvailability = new Availability("Tuesday", TuesStartHR, TuesStartMIN, TuesEndHR, TuesEndMIN);
+                myDBHelper.addAvailbility(username,TuesdayAvailability,c);
                 checkCount++;
             }
             if (Weds.isChecked()) {
@@ -54,6 +65,7 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int WedEndHR = Integer.parseInt(((EditText) findViewById(R.id.WedsHREnd)).getText().toString());
                 int WedEndMIN = Integer.parseInt(((EditText) findViewById(R.id.WedsMINEnd)).getText().toString());
                 Availability WednesdayAvailability = new Availability("Wednesday", WedStartHR, WedStartMIN, WedEndHR, WedEndMIN);
+                myDBHelper.addAvailbility(username,WednesdayAvailability,c);
                 checkCount++;
             }
             if (Thurs.isChecked()) {
@@ -62,6 +74,7 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int ThursEndHR = Integer.parseInt(((EditText) findViewById(R.id.ThursHREnd)).getText().toString());
                 int ThursEndMIN = Integer.parseInt(((EditText) findViewById(R.id.ThursMINEnd)).getText().toString());
                 Availability ThursdayAvailability = new Availability("Thursday", ThursStartHR, ThursStartMIN, ThursEndHR, ThursEndMIN);
+                myDBHelper.addAvailbility(username,ThursdayAvailability,c);
                 checkCount++;
             }
             if (Fri.isChecked()) {
@@ -70,6 +83,7 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int FriEndHR = Integer.parseInt(((EditText) findViewById(R.id.FridayHREnd)).getText().toString());
                 int FriEndMIN = Integer.parseInt(((EditText) findViewById(R.id.FridayMINEnd)).getText().toString());
                 Availability FridayAvailability = new Availability("Friday", FriStartHR, FriStartMIN, FriEndHR, FriEndMIN);
+                myDBHelper.addAvailbility(username,FridayAvailability,c);
                 checkCount++;
             }
             if (Sat.isChecked()) {
@@ -78,6 +92,7 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int SatEndHR = Integer.parseInt(((EditText) findViewById(R.id.SatHREnd)).getText().toString());
                 int SatEndMIN = Integer.parseInt(((EditText) findViewById(R.id.SatMINEnd)).getText().toString());
                 Availability SatAvailability = new Availability("Saturday", SatStartHR, SatStartMIN, SatEndHR, SatEndMIN);
+                myDBHelper.addAvailbility(username,SatAvailability,c);
                 checkCount++;
             }
             if (Sun.isChecked()) {
@@ -86,6 +101,7 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int SunEndHR = Integer.parseInt(((EditText) findViewById(R.id.SunHREnd)).getText().toString());
                 int SunEndMIN = Integer.parseInt(((EditText) findViewById(R.id.SunMINEnd)).getText().toString());
                 Availability SunAvailability = new Availability("Sunday", SunStartHR, SunStartMIN, SunEndHR, SunEndMIN);
+                myDBHelper.addAvailbility(username,SunAvailability,c);
                 checkCount++;
             }
             if (checkCount >= 0) {
