@@ -37,6 +37,7 @@
         <activity android:name=".HomeownerBookService" />
         <activity android:name=".HomeownerServiceSearch" />
         <activity android:name=".HomeownerViewBookedAndRate" />
+        <activity android:name="ServiceProviderAvailability" />
         <activity android:name=".RateBooking"></activity>
     </application>
 
