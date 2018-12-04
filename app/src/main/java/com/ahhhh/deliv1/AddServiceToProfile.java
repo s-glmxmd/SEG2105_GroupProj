@@ -40,15 +40,8 @@ public class AddServiceToProfile extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), ServiceSelector.class);
                     intent.putExtra("username", username);
                     startActivity(intent);
+                    return;
                 }
-                Context context = getApplicationContext();
-                CharSequence incorrectPassword = "Did not work";
-                int duration = Toast.LENGTH_LONG;
-                Toast toast = Toast.makeText(context, incorrectPassword, duration);
-                toast.show();
-                Intent intent = new Intent(getApplicationContext(), ServiceSelector.class);
-                intent.putExtra("username", username);
-                startActivity(intent);
             }
         });
 

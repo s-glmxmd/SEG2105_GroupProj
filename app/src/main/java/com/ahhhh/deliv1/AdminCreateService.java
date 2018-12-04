@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AdminCreateService extends AppCompatActivity {
 
@@ -23,7 +24,7 @@ public class AdminCreateService extends AppCompatActivity {
         String errorMessage=createdService.validateEnteredInfo();
 
         if(errorMessage!=null){
-            ((TextView)findViewById(R.id.editTextServiceName)).setText(errorMessage);
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
         } else{
             //save service to database
             double rateForService = createdService.hourlyRate;

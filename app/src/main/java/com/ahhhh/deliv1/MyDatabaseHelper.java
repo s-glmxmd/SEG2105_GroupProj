@@ -234,7 +234,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
         //update account info with phone number to account info
-        valuesAccount.put(COLUMN_PHONE_NUMBER, phoneNumber);
+        valuesAccount.put(COLUMN_PHONE_NUMBER, Integer.valueOf(phoneNumber));
         db.update(TABLE_NAME, valuesAccount, COLUMN_USERNAME + " =?", new String[]{username});
         db.close();
 
