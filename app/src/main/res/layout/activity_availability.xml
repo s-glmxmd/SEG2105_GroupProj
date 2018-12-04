@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-12"
-            android:inputType="textPersonName" />
+            android:inputType="phone" />
 
         <EditText
             android:id="@+id/SunMINStart"
@@ -39,7 +39,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-59"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/SunHREnd"
@@ -48,7 +48,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-12"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/SunMINEnd"
@@ -57,7 +57,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-59"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
     </LinearLayout>
 
@@ -112,7 +112,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-12"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/SatMINStart"
@@ -121,7 +121,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-59"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/SatHREnd"
@@ -130,7 +130,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-12"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/SatMINEnd"
@@ -139,7 +139,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-59"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
     </LinearLayout>
 
@@ -194,7 +194,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-12"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/FridayMINStart"
@@ -203,7 +203,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-59"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/FridayHREnd"
@@ -212,7 +212,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-12"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/FridayMINEnd"
@@ -221,7 +221,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-59"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
     </LinearLayout>
 
@@ -276,7 +276,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-12"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/ThursMINStart"
@@ -285,7 +285,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-59"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/ThursHREnd"
@@ -294,7 +294,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-12"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/ThursMINEnd"
@@ -303,7 +303,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-59"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
     </LinearLayout>
 
@@ -358,7 +358,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-12"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/WedsMINStart"
@@ -367,7 +367,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-59"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/WedsHREnd"
@@ -376,7 +376,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-12"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/WedsMINEnd"
@@ -385,7 +385,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-59"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
     </LinearLayout>
 
@@ -485,7 +485,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="00-59"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/MondayHREnd"
@@ -557,7 +557,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-12"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/TuesMINStart"
@@ -566,7 +566,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-59"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/TuesHREnd"
@@ -575,7 +575,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-12"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/TuesMINEnd"
@@ -584,7 +584,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="0-59"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
     </LinearLayout>
 

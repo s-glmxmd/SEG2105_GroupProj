@@ -46,6 +46,14 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int MonStartMIN = Integer.parseInt(((EditText) findViewById(R.id.MondayMINStart)).getText().toString());
                 int MonEndHR = Integer.parseInt(((EditText) findViewById(R.id.MondayHREnd)).getText().toString());
                 int MonEndMIN = Integer.parseInt(((EditText) findViewById(R.id.MondayMINEnd)).getText().toString());
+                if(!(MonStartHR < 0 && MonStartHR > 12 && MonEndHR < 0 && MonEndHR > 12)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(!(MonEndMIN < 0 && MonEndMIN > 59 && MonStartMIN < 0 && MonStartMIN > 59)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Availability MondayAvailability = new Availability("Monday", MonStartHR, MonStartMIN, MonEndHR, MonEndMIN);
                 myDBHelper.addAvailbility(username,MondayAvailability,c);
                 checkCount++;
@@ -55,6 +63,14 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int TuesStartMIN = Integer.parseInt(((EditText) findViewById(R.id.TuesMINStart)).getText().toString());
                 int TuesEndHR = Integer.parseInt(((EditText) findViewById(R.id.TuesHREnd)).getText().toString());
                 int TuesEndMIN = Integer.parseInt(((EditText) findViewById(R.id.TuesMINEnd)).getText().toString());
+                if(!(TuesStartHR < 0 && TuesStartHR > 12 && TuesEndHR < 0 && TuesEndHR > 12)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(!(TuesEndMIN < 0 && TuesEndMIN > 59 && TuesStartMIN < 0 && TuesStartMIN > 59)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Availability TuesdayAvailability = new Availability("Tuesday", TuesStartHR, TuesStartMIN, TuesEndHR, TuesEndMIN);
                 myDBHelper.addAvailbility(username,TuesdayAvailability,c);
                 checkCount++;
@@ -64,6 +80,14 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int WedStartMIN = Integer.parseInt(((EditText) findViewById(R.id.WedsMINStart)).getText().toString());
                 int WedEndHR = Integer.parseInt(((EditText) findViewById(R.id.WedsHREnd)).getText().toString());
                 int WedEndMIN = Integer.parseInt(((EditText) findViewById(R.id.WedsMINEnd)).getText().toString());
+                if(!(WedStartHR < 0 && WedStartHR > 12 && WedEndHR < 0 && WedEndHR > 12)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(!(WedEndMIN < 0 && WedEndMIN > 59 && WedStartMIN < 0 && WedStartMIN > 59)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Availability WednesdayAvailability = new Availability("Wednesday", WedStartHR, WedStartMIN, WedEndHR, WedEndMIN);
                 myDBHelper.addAvailbility(username,WednesdayAvailability,c);
                 checkCount++;
@@ -73,6 +97,14 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int ThursStartMIN = Integer.parseInt(((EditText) findViewById(R.id.ThursMINStart)).getText().toString());
                 int ThursEndHR = Integer.parseInt(((EditText) findViewById(R.id.ThursHREnd)).getText().toString());
                 int ThursEndMIN = Integer.parseInt(((EditText) findViewById(R.id.ThursMINEnd)).getText().toString());
+                if(!(ThursStartHR < 0 && ThursStartHR > 12 && ThursEndHR < 0 && ThursEndHR > 12)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(!(ThursEndMIN < 0 && ThursEndMIN > 59 && ThursStartMIN < 0 && ThursStartMIN > 59)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Availability ThursdayAvailability = new Availability("Thursday", ThursStartHR, ThursStartMIN, ThursEndHR, ThursEndMIN);
                 myDBHelper.addAvailbility(username,ThursdayAvailability,c);
                 checkCount++;
@@ -82,6 +114,14 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int FriStartMIN = Integer.parseInt(((EditText) findViewById(R.id.FridayMINStart)).getText().toString());
                 int FriEndHR = Integer.parseInt(((EditText) findViewById(R.id.FridayHREnd)).getText().toString());
                 int FriEndMIN = Integer.parseInt(((EditText) findViewById(R.id.FridayMINEnd)).getText().toString());
+                if(!(FriStartHR < 0 && FriStartHR > 12 && FriEndHR < 0 && FriEndHR > 12)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(!(FriEndMIN < 0 && FriEndMIN > 59 && FriStartMIN < 0 && FriStartMIN > 59)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Availability FridayAvailability = new Availability("Friday", FriStartHR, FriStartMIN, FriEndHR, FriEndMIN);
                 myDBHelper.addAvailbility(username,FridayAvailability,c);
                 checkCount++;
@@ -91,6 +131,14 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int SatStartMIN = Integer.parseInt(((EditText) findViewById(R.id.SatMINStart)).getText().toString());
                 int SatEndHR = Integer.parseInt(((EditText) findViewById(R.id.SatHREnd)).getText().toString());
                 int SatEndMIN = Integer.parseInt(((EditText) findViewById(R.id.SatMINEnd)).getText().toString());
+                if(!(SatStartHR < 0 && SatStartHR > 12 && SatEndHR < 0 && SatEndHR > 12)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(!(SatEndMIN < 0 && SatEndMIN > 59 && SatStartMIN < 0 && SatStartMIN > 59)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Availability SatAvailability = new Availability("Saturday", SatStartHR, SatStartMIN, SatEndHR, SatEndMIN);
                 myDBHelper.addAvailbility(username,SatAvailability,c);
                 checkCount++;
@@ -100,6 +148,14 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int SunStartMIN = Integer.parseInt(((EditText) findViewById(R.id.SunMINStart)).getText().toString());
                 int SunEndHR = Integer.parseInt(((EditText) findViewById(R.id.SunHREnd)).getText().toString());
                 int SunEndMIN = Integer.parseInt(((EditText) findViewById(R.id.SunMINEnd)).getText().toString());
+                if(!(SunStartHR < 0 && SunStartHR > 12 && SunEndHR < 0 && SunEndHR > 12)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(!(SunEndMIN < 0 && SunEndMIN > 59 && SunStartMIN < 0 && SunStartMIN > 59)){
+                    Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Availability SunAvailability = new Availability("Sunday", SunStartHR, SunStartMIN, SunEndHR, SunEndMIN);
                 myDBHelper.addAvailbility(username,SunAvailability,c);
                 checkCount++;
