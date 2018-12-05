@@ -58,4 +58,9 @@ public class DisplayServiceProviderProfile extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void btnLogoutClick(View view) {
+        Intent i = new Intent(DisplayServiceProviderProfile.this, MainActivity.class);
+        startActivity(i);
+    }
+
 }

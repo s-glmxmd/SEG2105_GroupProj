@@ -45,5 +45,10 @@ public class HomeownerViewBookedAndRate extends AppCompatActivity {
 
         }
     }
+    public void btnReturn(View view) {
+        Intent i = new Intent(HomeownerViewBookedAndRate.this, HomeownerFunctionality.class);
+        i.putExtra("username", username);
+        startActivity(i);
+    }
 
 }

@@ -65,4 +65,10 @@ public class ServiceSelector extends AppCompatActivity {
         intent.putExtra("username", username);
         startActivity(intent);
     }
+
+    public void btnReturn(View view ){
+        Intent intent = new Intent(ServiceSelector.this, DisplayServiceProviderProfile.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
 }
