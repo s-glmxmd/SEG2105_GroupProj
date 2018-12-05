@@ -49,6 +49,10 @@ public class ServiceProvider extends UserAccount implements Serializable {
         return workerAddress;
     }
 
+    public void setDescription(String desc) {
+        this.description = desc;
+    }
+
     public void setPhoneNumber(String newPhoneNumber){
         phoneNumber=newPhoneNumber;
     }
@@ -63,6 +67,11 @@ public class ServiceProvider extends UserAccount implements Serializable {
     public void addAvailability(Availability availability) {
         availabilities.add(availability);
         Collections.sort(availabilities);
+    }
+
+    public void addAvailabilities(ArrayList<Availability> availabilities) {
+        this.availabilities.addAll(availabilities);
+        Collections.sort(this.availabilities);
     }
 
 
@@ -111,7 +120,7 @@ public class ServiceProvider extends UserAccount implements Serializable {
             }
         }
         if(numRatedBookings==0.0){
-            return -1;
+            return -1.0;
         }
         avg=avg/numRatedBookings;
         return avg;

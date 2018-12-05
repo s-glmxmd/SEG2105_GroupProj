@@ -16,7 +16,7 @@ import java.util.Comparator;
 
 public class HomeownerServiceSearch extends AppCompatActivity {
     private String username;
-    private ArrayList<ServiceProvider> SPs;
+    private ArrayList<ServiceProvider> serviceProviders;
     private ArrayList<FullServiceInfo> allServices;
     private FullServiceInfo infoSelected;
     private Spinner spinnerSorter;
@@ -29,6 +29,7 @@ public class HomeownerServiceSearch extends AppCompatActivity {
         Bundle passedVals = getIntent().getExtras();
         username = passedVals.getString("username");
         spinnerSorter = (Spinner) findViewById(R.id.spinnerSorter);
+        MyDatabaseHelper mydbHelper = new MyDatabaseHelper(this);
 
         ArrayList<String> spinnerSorterOptions = new ArrayList<String>();
         spinnerSorterOptions.add("Service");
@@ -38,35 +39,17 @@ public class HomeownerServiceSearch extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSorter.setAdapter(spinnerAdapter);
 
-        //pull all service providers from database FEMALE
-        SPs = new ArrayList<ServiceProvider>();
-        //Here i've done 2 test service providers,remove this when DB is finished
-        ArrayList<Service> testServices = new ArrayList<Service>();
-        testServices.add(new Service("gardening", "2.0"));
-        //testServices.add(new Service("snorting coke", "3.0"));
+        //pull all service providers from database FEMALE           **DONE**
 
-        //Female, note that i've made availability objects comparable to sort service providers by time
-        Availability sp1Avail = new Availability("Tuesday", 8, 12, 12, 8);
-        //Availability sp2Avail = new Availability("Tuesday", 8, 15, 12, 8);
+        serviceProviders = mydbHelper.getServiceProviders();
 
-        ServiceProvider sp1 = new ServiceProvider("uname1", "pass1", "first1", "last1");
-        //ServiceProvider sp2 = new ServiceProvider("uname2", "pass2", "first2", "last2");
-
-        sp1.addServices(testServices);
-        //sp2.addServices(testServices);
-        sp1.addAvailability(sp1Avail);
-        //sp2.addAvailability(sp2Avail);
-
-        SPs.add(sp1);
-        //SPs.add(sp2);
-
-        //This needs to be populated based on the list of SPs
 
         //*** SERVICE PROVIDERS SHOULD HAVE A VALIDATION BEFORE THEY ARE ADDED TO LIST
         allServices = new ArrayList<FullServiceInfo>();
-        for (ServiceProvider sp : SPs) {
-            for (Service serv : sp.getServices()) {
-                allServices.add(new FullServiceInfo(sp, serv));
+        for (ServiceProvider sp : serviceProviders) {
+            ArrayList<Service> services = mydbHelper.getServices(sp.getUsername());
+            for (Service service : services) {
+                allServices.add(new FullServiceInfo(sp, service));
             }
         }
 
@@ -88,21 +71,23 @@ public class HomeownerServiceSearch extends AppCompatActivity {
                 }
             });
 
-        }
-        spinnerSorter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                sortInfo();
-                adapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                spinnerSorter.setSelected(true);
-                sortInfo();
-                adapter.notifyDataSetChanged();
-            }
+            spinnerSorter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                    sortInfo();
+                    adapter.notifyDataSetChanged();
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parentView) {
+                    spinnerSorter.setSelected(true);
+                    sortInfo();
+                    adapter.notifyDataSetChanged();
+                }
 
-        });
+            });
+
+        }
+
     }
 
     private void sortInfo() {

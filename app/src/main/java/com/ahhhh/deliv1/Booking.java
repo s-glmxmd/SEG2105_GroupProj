@@ -6,6 +6,7 @@ public class Booking implements Serializable {
     private Rating homeownerRating;
     private String weekday;
     private Service service;
+    private String spUsername;
 
     //used if reconstructing an instance of Booking from stored data
     public Booking(String weekday, Service service, Rating homeownerRating){
@@ -44,5 +45,13 @@ public class Booking implements Serializable {
     @Override
     public String toString() {
         return service.getServiceName()+" on "+weekday;
+    }
+
+    public String getSp() {
+        return this.spUsername;
+    }
+
+    public void setSp(String sp) {
+        this.spUsername = sp;
     }
 }

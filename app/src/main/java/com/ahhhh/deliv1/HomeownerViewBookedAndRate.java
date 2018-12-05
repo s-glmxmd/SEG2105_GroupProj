@@ -19,13 +19,16 @@ public class HomeownerViewBookedAndRate extends AppCompatActivity {
         setContentView(R.layout.activity_homeowner_view_booked_and_rate);
         Bundle passedVals = getIntent().getExtras();
         username=passedVals.getString("username");
-        //pull all bookings for this homeowner from db FEMALE
+        MyDatabaseHelper mydbHelper = new MyDatabaseHelper(this);
+
+        //pull all bookings for this homeowner from db FEMALE               **DONE**
         //the following are for test purposes, delete them after and populate the list with the actual instances
 
-        final ArrayList<Booking> bookings = new ArrayList<Booking>();
-        bookings.add(new Booking("Monday", new Service("Gardening", 25)));
+        final ArrayList<Booking> bookings = mydbHelper.getBookings(username);
+        //bookings.add(new Booking("Monday", new Service("Gardening", 25)));
         //bookings.add(new Booking("Tuesday", new Service("sniffin some more", 25)));
 
+        //WHAT IS IT SUPPOSED TO DO IF EMPTY?
         if (bookings.size() != 0) {
             ListView listView = findViewById(R.id.listViewBookings);
             ArrayAdapter<Booking> adapter = new ArrayAdapter<Booking>(this, android.R.layout.simple_list_item_1, android.R.id.text1, bookings);
