@@ -46,11 +46,11 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int MonStartMIN = Integer.parseInt(((EditText) findViewById(R.id.MondayMINStart)).getText().toString());
                 int MonEndHR = Integer.parseInt(((EditText) findViewById(R.id.MondayHREnd)).getText().toString());
                 int MonEndMIN = Integer.parseInt(((EditText) findViewById(R.id.MondayMINEnd)).getText().toString());
-                if(!(MonStartHR < 0 && MonStartHR > 12 && MonEndHR < 0 && MonEndHR > 12)){
+                if(MonStartHR < 0 || MonStartHR > 12 || MonEndHR < 0 || MonEndHR > 12){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(!(MonEndMIN < 0 && MonEndMIN > 59 && MonStartMIN < 0 && MonStartMIN > 59)){
+                if(MonEndMIN < 0 || MonEndMIN > 59 || MonStartMIN < 0 || MonStartMIN > 59){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -63,11 +63,11 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int TuesStartMIN = Integer.parseInt(((EditText) findViewById(R.id.TuesMINStart)).getText().toString());
                 int TuesEndHR = Integer.parseInt(((EditText) findViewById(R.id.TuesHREnd)).getText().toString());
                 int TuesEndMIN = Integer.parseInt(((EditText) findViewById(R.id.TuesMINEnd)).getText().toString());
-                if(!(TuesStartHR < 0 && TuesStartHR > 12 && TuesEndHR < 0 && TuesEndHR > 12)){
+                if(TuesStartHR < 0 || TuesStartHR > 12 || TuesEndHR < 0 || TuesEndHR > 12){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(!(TuesEndMIN < 0 && TuesEndMIN > 59 && TuesStartMIN < 0 && TuesStartMIN > 59)){
+                if(TuesEndMIN < 0 || TuesEndMIN > 59 || TuesStartMIN < 0 || TuesStartMIN > 59){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -80,11 +80,11 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int WedStartMIN = Integer.parseInt(((EditText) findViewById(R.id.WedsMINStart)).getText().toString());
                 int WedEndHR = Integer.parseInt(((EditText) findViewById(R.id.WedsHREnd)).getText().toString());
                 int WedEndMIN = Integer.parseInt(((EditText) findViewById(R.id.WedsMINEnd)).getText().toString());
-                if(!(WedStartHR < 0 && WedStartHR > 12 && WedEndHR < 0 && WedEndHR > 12)){
+                if(WedStartHR < 0 || WedStartHR > 12 || WedEndHR < 0 || WedEndHR > 12){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(!(WedEndMIN < 0 && WedEndMIN > 59 && WedStartMIN < 0 && WedStartMIN > 59)){
+                if(WedEndMIN < 0 || WedEndMIN > 59 || WedStartMIN < 0 || WedStartMIN > 59){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -97,11 +97,11 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int ThursStartMIN = Integer.parseInt(((EditText) findViewById(R.id.ThursMINStart)).getText().toString());
                 int ThursEndHR = Integer.parseInt(((EditText) findViewById(R.id.ThursHREnd)).getText().toString());
                 int ThursEndMIN = Integer.parseInt(((EditText) findViewById(R.id.ThursMINEnd)).getText().toString());
-                if(!(ThursStartHR < 0 && ThursStartHR > 12 && ThursEndHR < 0 && ThursEndHR > 12)){
+                if(ThursStartHR < 0 || ThursStartHR > 12 || ThursEndHR < 0 || ThursEndHR > 12){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(!(ThursEndMIN < 0 && ThursEndMIN > 59 && ThursStartMIN < 0 && ThursStartMIN > 59)){
+                if(ThursEndMIN < 0 || ThursEndMIN > 59 || ThursStartMIN < 0 || ThursStartMIN > 59){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -114,11 +114,11 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int FriStartMIN = Integer.parseInt(((EditText) findViewById(R.id.FridayMINStart)).getText().toString());
                 int FriEndHR = Integer.parseInt(((EditText) findViewById(R.id.FridayHREnd)).getText().toString());
                 int FriEndMIN = Integer.parseInt(((EditText) findViewById(R.id.FridayMINEnd)).getText().toString());
-                if(!(FriStartHR < 0 && FriStartHR > 12 && FriEndHR < 0 && FriEndHR > 12)){
+                if(FriStartHR < 0 || FriStartHR > 12 || FriEndHR < 0 || FriEndHR > 12){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(!(FriEndMIN < 0 && FriEndMIN > 59 && FriStartMIN < 0 && FriStartMIN > 59)){
+                if(FriEndMIN < 0 || FriEndMIN > 59 || FriStartMIN < 0 || FriStartMIN > 59){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -131,11 +131,11 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int SatStartMIN = Integer.parseInt(((EditText) findViewById(R.id.SatMINStart)).getText().toString());
                 int SatEndHR = Integer.parseInt(((EditText) findViewById(R.id.SatHREnd)).getText().toString());
                 int SatEndMIN = Integer.parseInt(((EditText) findViewById(R.id.SatMINEnd)).getText().toString());
-                if(!(SatStartHR < 0 && SatStartHR > 12 && SatEndHR < 0 && SatEndHR > 12)){
+                if(SatStartHR < 0 || SatStartHR > 12 || SatEndHR < 0 || SatEndHR > 12){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(!(SatEndMIN < 0 && SatEndMIN > 59 && SatStartMIN < 0 && SatStartMIN > 59)){
+                if(SatEndMIN < 0 || SatEndMIN > 59 || SatStartMIN < 0 || SatStartMIN > 59){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -148,11 +148,11 @@ public class ServiceProviderAvailability extends AppCompatActivity {
                 int SunStartMIN = Integer.parseInt(((EditText) findViewById(R.id.SunMINStart)).getText().toString());
                 int SunEndHR = Integer.parseInt(((EditText) findViewById(R.id.SunHREnd)).getText().toString());
                 int SunEndMIN = Integer.parseInt(((EditText) findViewById(R.id.SunMINEnd)).getText().toString());
-                if(!(SunStartHR < 0 && SunStartHR > 12 && SunEndHR < 0 && SunEndHR > 12)){
+                if(SunStartHR < 0 || SunStartHR > 12 || SunEndHR < 0 || SunEndHR > 12){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(!(SunEndMIN < 0 && SunEndMIN > 59 && SunStartMIN < 0 && SunStartMIN > 59)){
+                if(SunEndMIN < 0 || SunEndMIN > 59 || SunStartMIN < 0 || SunStartMIN > 59){
                     Toast.makeText(this, "Your times must fit the specified range!", Toast.LENGTH_LONG).show();
                     return;
                 }

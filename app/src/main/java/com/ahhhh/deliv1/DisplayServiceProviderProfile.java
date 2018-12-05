@@ -20,7 +20,6 @@ public class DisplayServiceProviderProfile extends AppCompatActivity {
         username = passedVals.getString("username");
         String [] name = myDBHelper.getName(username);
         String password = myDBHelper.findPassword(username);
-
         String [] info = myDBHelper.getSPInfo(username);
 
 
