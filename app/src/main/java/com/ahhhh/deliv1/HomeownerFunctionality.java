@@ -27,4 +27,8 @@ public class HomeownerFunctionality extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void btnLogoutClick(View view) {
+        Intent i = new Intent(HomeownerFunctionality.this, MainActivity.class);
+        startActivity(i);
+    }
 }

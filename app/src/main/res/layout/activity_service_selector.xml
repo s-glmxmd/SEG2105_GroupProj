@@ -39,6 +39,14 @@
                 android:layout_weight="1"
                 android:onClick="btnAddService"
                 android:text="Add Service" />
+
+            <Button
+                android:id="@+id/btnReturn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="btnReturn"
+                android:text="Return to Profile" />
         </LinearLayout>
     </LinearLayout>
 

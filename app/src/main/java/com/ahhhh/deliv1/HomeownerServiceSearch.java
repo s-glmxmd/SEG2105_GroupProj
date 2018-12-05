@@ -139,4 +139,9 @@ public class HomeownerServiceSearch extends AppCompatActivity {
         }
 
     }
+    public void btnReturn(View view) {
+        Intent i = new Intent(HomeownerServiceSearch.this, HomeownerFunctionality.class);
+        i.putExtra("username", username);
+        startActivity(i);
+    }
 }

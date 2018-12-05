@@ -49,6 +49,11 @@ public class ServiceInfoActivity extends AppCompatActivity {
         Intent i = new Intent(ServiceInfoActivity.this, AdminCreateService.class);
         startActivity(i);
     }
+    public void btnLogoutClick(View view) {
+        Intent i = new Intent(ServiceInfoActivity.this, MainActivity.class);
+        startActivity(i);
+    }
+
 
 
 

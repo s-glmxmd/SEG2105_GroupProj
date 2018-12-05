@@ -24,5 +24,12 @@
             android:layout_height="wrap_content"
             android:onClick="btnViewBookedAndRate"
             android:text="View and Rate Booked Services" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnLogoutClick"
+            android:text="Logout" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
