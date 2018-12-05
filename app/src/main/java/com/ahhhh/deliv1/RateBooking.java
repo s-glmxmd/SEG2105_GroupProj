@@ -41,8 +41,13 @@ public class RateBooking extends AppCompatActivity {
 
     //listener for btnsubmit rating
     public void btnSubmitRating(View view){
-        selectedBooking.setHomeownerRating(new Rating(Integer.parseInt(spinnerRating.getSelectedItem().toString()),((TextView) findViewById(R.id.editTextComments)).getText().toString()));
+        Rating rating = new Rating(Integer.parseInt(spinnerRating.getSelectedItem().toString()),((TextView) findViewById(R.id.editTextComments)).getText().toString());
+
+        selectedBooking.setHomeownerRating(rating);
+        MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+
         //FEMALE save this booking to the homeowner and to the SP
+
         Intent i = new Intent(RateBooking.this, HomeownerFunctionality.class);
         i.putExtra("username", username);
         startActivity(i);

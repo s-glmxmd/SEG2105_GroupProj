@@ -46,13 +46,18 @@ public class HomeownerBookService extends AppCompatActivity {
     public void btnBookServiceClick(View view){
         //FEMALE
         //creating a booking which must now be saved to the homeowner and the service provider
+
         Availability avail=null;
         for(Availability a:sP.getAvailabilities()){
             if(a.toString().equals(spinnerSorter.getSelectedItem().toString())){
                 avail=a;
             }
         }
+        String spUsername = sP.getUsername();
         Booking booking = new Booking(avail.getDay(), serv);
+        MyDatabaseHelper myDBHelper = new MyDatabaseHelper(this);
+        myDBHelper.updateBookings(username, spUsername, booking, this);
+
         //return to Homeowner Functionality
         Intent i = new Intent(HomeownerBookService.this, HomeownerFunctionality.class);
 

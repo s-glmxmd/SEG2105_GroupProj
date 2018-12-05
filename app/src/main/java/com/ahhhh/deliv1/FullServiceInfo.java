@@ -23,7 +23,7 @@ public class FullServiceInfo implements Serializable {
     @Override
     //consider not showing next available day since it will be unclear if that is this week or next week
     public String toString() {
-        if(avgRating==-1){
+        if(avgRating==-1.0){
             return (servName+", "+sPName+", "+"unrated"+", "+nextAvailability.getDay());
         }
         return (servName+", "+sPName+", "+avgRating+", "+nextAvailability.getDay());
