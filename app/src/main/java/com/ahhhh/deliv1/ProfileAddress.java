@@ -1,6 +1,8 @@
 package com.ahhhh.deliv1;
 
-public class ProfileAddress {
+import java.io.Serializable;
+
+public class ProfileAddress implements Serializable {
     private String streetAddress, province, country, postalCode;
     public ProfileAddress(String streetAddress, String province, String country, String postalCode){
         this.streetAddress=streetAddress;
