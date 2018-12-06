@@ -1,13 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: android.arch.lifecycle:runtime-1.1.1">
     <CLASSES>
-<<<<<<< HEAD
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/fca0afaa8021bb1cefb62ac2c68e8332/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/fca0afaa8021bb1cefb62ac2c68e8332/res" />
-=======
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/54c50567726fdfac2aef414bc8d9a7ec/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/54c50567726fdfac2aef414bc8d9a7ec/res" />
->>>>>>> DatabaseAddition
     </CLASSES>
     <JAVADOC />
     <SOURCES>

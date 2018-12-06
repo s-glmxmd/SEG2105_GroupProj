@@ -49,6 +49,7 @@ public class HomeownerServiceSearch extends AppCompatActivity {
         for (ServiceProvider sp : serviceProviders) {
             ArrayList<Service> services = mydbHelper.getServices(sp.getUsername());
             for (Service service : services) {
+                sp.getServices().add(service);
                 allServices.add(new FullServiceInfo(sp, service));
             }
         }
