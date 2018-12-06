@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+
 public class LogIn extends AppCompatActivity {
 
     @Override
@@ -16,7 +18,7 @@ public class LogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
     }
-    public void btnValidateLoginClick(View view){
+    public void btnValidateLoginClick(View view) throws UnsupportedEncodingException {
         String username=((EditText) findViewById(R.id.editTextUsernameLogin)).getText().toString();
         String password=((EditText) findViewById(R.id.editTextPasswordLogin)).getText().toString();
 
@@ -33,7 +35,8 @@ public class LogIn extends AppCompatActivity {
         }
         if (myDBHelper.usernameExist(username)) {
             String passwordFromDB = myDBHelper.findPassword(username);
-            if (!password.equals(passwordFromDB)) {
+            String tempPassword = Sha1.hash(password);
+            if (!tempPassword.equals(passwordFromDB)) {
                 Context context = getApplicationContext();
                 CharSequence incorrectPassword = "Your password is incorrect!";
                 int duration = Toast.LENGTH_LONG;
