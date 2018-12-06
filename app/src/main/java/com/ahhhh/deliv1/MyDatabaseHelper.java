@@ -521,9 +521,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
             // Get the bytes of the serialized object
             byte[] data = bos.toByteArray();
+            values.put(COLUMN_USERNAME, hoUsername);
             values.put(COLUMN_BOOKINGS, data);
+            db.insert(HOMEOWNER_BOOKINGS,null,  values);
 
-            db.update(HOMEOWNER_BOOKINGS, values, COLUMN_USERNAME + "=? ", new String[]{hoUsername});
+            //db.update(HOMEOWNER_BOOKINGS, values, COLUMN_USERNAME + "=? ", new String[]{hoUsername});
         } catch (IOException e) {
             db.close();
             return false;
@@ -547,19 +549,22 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
         if (cursor.moveToFirst()) {
-            byte[] value = cursor.getBlob(0);
-            if (value != null) {
-                try {
-                    ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(value));
+            do {
+                byte[] value = cursor.getBlob(0);
+                if (value != null) {
                     try {
-                        bookings = (ArrayList<Booking>) ois.readObject();
-                    } catch (ClassNotFoundException e) {
+                        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(value));
+                        try {
+                            bookings.addAll((ArrayList<Booking>) ois.readObject());
+                        } catch (ClassNotFoundException e) {
+                            return null;
+                        }
+                    } catch (IOException e) {
                         return null;
                     }
-                } catch (IOException e) {
-                    return null;
                 }
-            }
+            }while (cursor.moveToNext());
+
         }
         cursor.close();
         db.close();
