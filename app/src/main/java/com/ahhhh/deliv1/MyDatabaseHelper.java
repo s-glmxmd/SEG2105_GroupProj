@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -425,15 +426,18 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        try {
+            password = Sha1.hash(password);
+            values.put(COLUMN_FIRST_NAME, fName);
+            values.put(COLUMN_LAST_NAME, lName);
+            values.put(COLUMN_USERNAME, username);
+            values.put(COLUMN_PASSWORD, password);
+            values.put(COLUMN_ACCOUNT_TYPE, accountType);
 
-        values.put(COLUMN_FIRST_NAME, fName);
-        values.put(COLUMN_LAST_NAME, lName);
-        values.put(COLUMN_USERNAME, username);
-        values.put(COLUMN_PASSWORD, password);
-        values.put(COLUMN_ACCOUNT_TYPE, accountType);
-
-        db.insert(TABLE_NAME, null, values);
-        db.close();
+            db.insert(TABLE_NAME, null, values);
+        } catch (UnsupportedEncodingException e) {
+            db.close();
+        }
     }
 
 
